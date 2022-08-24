@@ -2,7 +2,7 @@
 Simple Cinema System involving functionalities like CRUD. Created using Java, HTML, CSS, JS &amp; MySQL
 
 # Instruction
-- The name of the JSP file to run for starting up your website.</br>
+- The name of the JSP file to run for starting up the website.</br>
 **Home.jsp**</br>
 
 - NetBeans version</br>
@@ -14,7 +14,7 @@ Simple Cinema System involving functionalities like CRUD. Created using Java, HT
 - Glassfish version</br>
 **Glassfish Server 4.1.1**</br>
 
-- The name, username and password of your Derby database</br>
+- The name, username and password of the Derby database</br>
 **Name:** assignmentdb</br>
 **Username:** nbuser</br>
 **Password:** nbuser</br>
@@ -28,7 +28,7 @@ Simple Cinema System involving functionalities like CRUD. Created using Java, HT
 **email:** kevinthum@gmail.com</br>
 **password:** kevin12thum34</br>
 
-- Any special configuration needed in order to run your website (e.g. additional settings)</br>
+- Any special configuration needed in order to run the website (e.g. additional settings)</br>
 **NONE**</br>
 
 # NOTE
