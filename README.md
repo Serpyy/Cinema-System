@@ -5,13 +5,13 @@ Simple Cinema System involving functionalities like CRUD. Created using Java, HT
 - The name of the JSP file to run for starting up your website.</br>
 **Home.jsp**</br>
 
-- Your NetBeans version</br>
+- NetBeans version</br>
 **NetBeans 8.2**</br>
 
-- Your JDK version</br>
+- JDK version</br>
 **JDK 1.8**</br>
 
-- Your Glassfish version</br>
+- Glassfish version</br>
 **Glassfish Server 4.1.1**</br>
 
 - The name, username and password of your Derby database</br>
@@ -19,7 +19,7 @@ Simple Cinema System involving functionalities like CRUD. Created using Java, HT
 **Username:** nbuser</br>
 **Password:** nbuser</br>
 
-- The login credentials to test your system</br>
+- Login credentials to test the system</br>
 **Customer:**</br>
 **email:** PouAnn@hotmail.com</br>
 **password:** 147729Van00</br>
