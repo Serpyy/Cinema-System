@@ -1,0 +1,385 @@
+.custom-content{
+    color:white;
+    width: 70%;
+    margin: auto;
+}
+
+.crud{
+    background-color: #ffe229;
+    color: black;
+    padding: 10px;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    margin: 25px 20px 0px 0px;
+    flex:3;
+    display:inline;
+    float:right;
+}
+
+.crud:hover{
+    background-color: white;
+    color: #ffe229;
+    transition: 0.5s;
+}
+
+.crud:disabled{
+    opacity:0.5;
+}
+
+.search-box-container2 {
+  display:inline-block;
+  float:right;
+  margin-top:20px;
+
+}
+
+.crud-table{
+    margin: 20px 0px 0px 0px;
+    display:inline-block;
+    border:1px solid white;
+    border-collapse: collapse;
+    height: 800px;
+    overflow: scroll;
+    width: 100%;
+}
+
+.crud-table tr{
+    border:1px solid #5c5c5c;
+}
+
+.synopsis-text{
+    max-width: 300px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.table-row-header{
+    color:black;
+    background-color:white;
+    
+}
+
+.table-head{
+    position:sticky;
+    top:0;
+}
+
+.table-header{
+    text-align:center;
+    min-width: 110px;
+    padding:10px 0px 10px 0px;
+}
+
+.search-box2{
+    background: #2f3640;
+    height:40px;
+    border-radius:25px;
+    padding: 10px 10px 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+}
+
+.table-caption{
+    padding:20px 0px 0px 10px;
+}
+
+.table-data{
+    text-align:center;
+    height:100px;
+}
+
+tr:nth-child(even) {background-color: #262626;}
+
+.search-filter{
+    background-color: #2f3640;
+    color:white;
+    border:none;
+    padding:10px 20px 10px 10px;
+}
+
+.search-filter:focus{
+    outline:none;
+}
+
+.search-filter option{
+    font-size:15px;
+}
+
+.search-txt2{
+    border:none;
+    background:none;
+    outline:none;
+    float: left;
+    padding:0 6px;
+    color:white;
+    font-size: 14px;
+    line-height: 20px;
+    width: 150px;
+    padding-left: 20px;
+}
+
+.table-cast{
+    min-width: 500px;
+    flex: 0 0 auto;
+    nowrap: nowrap;
+}
+
+.table-synopsis{
+    flex: 0 0 auto;
+    min-width: 300px;
+}
+
+.image-preview{
+    width: 324px;
+    height:435px;
+    border:2px solid white;
+    margin-top:20px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-weight:bold;
+    color:#cccccc;
+    margin-left: 30px;
+}
+
+.poster{
+    display:none;
+    width:100%;
+    height:100%;
+}
+
+.inputPoster{
+    font-size: 25px;
+    margin:0px 340px 0px 30px;
+    display: inline-block;
+}
+
+
+.custom-content2{
+    color:white;
+    width: 70%;
+    margin: auto;
+    padding:10px;
+}
+
+.posterField{
+    grid-row-start: 3;
+    grid-row-end: 8;
+    text-align:center;
+}
+
+.form{
+    width:100%;
+    margin:40px 0 50px 0;
+    background-color: rgba(0,0,0,0.5);
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 120px 70px 120px 120px 120px 210px 270px 100px;
+    border-radius: 20px;
+}
+
+.title{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.input-wrapper{
+    font-size: 25px;
+}
+
+.input-field{
+    width:300px;
+    height:30px;
+    font-size:15px;
+    outline:none;
+}
+
+.input-field:focus{
+    border:1px solid black;
+}
+
+input[type=file]::file-selector-button{
+    background-color: #ffe229;
+    color:black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    border:none;
+}
+
+input[type=file]::file-selector-button:hover{
+    background-color: white;
+    color:#ffe229;
+    transition: 0.5s ease;
+}
+
+.cast-select{
+    width:400px;
+    height:40px;
+    margin:25px 0 0 35px;
+}
+
+.input-cast-wrapper{
+    font-size: 25px;
+    grid-row-start:6;
+    grid-column-start:2;
+    grid-column-end:3;
+    border:1px solid white;
+    width: 750px;
+    height:90%;
+}
+
+.word-count{
+    color:white;
+    font-size:20px;
+    float:right;
+    margin-right:150px;
+}
+
+#sort:hover{
+    transition:0.5s;
+    color:#ffe229;
+}
+
+.ID{
+    background:none;
+    font-weight:bold;
+    color:white;
+    border:none;
+    outline:none;
+    font-size:25px;
+    width:100px;
+    cursor:context-menu;
+}
+
+.form2{
+    width:90%;
+    height:700px;
+    background-color: rgba(0,0,0,0.5);
+    margin: 20px 0 0 20px; 
+    display: grid;
+    grid-template-rows: 12.5% 12.5% 10% 12.5% 12.5% 12.5% 12.5% 12.5%;
+    border-radius: 20px;
+}
+
+.custom-content3{
+    color:white;
+    width: 70%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 65% 35%;
+}
+
+.staffID{
+    height:30px;
+    background:none;
+    border:none;
+    outline:none;
+}
+
+.input-data{
+    height:50px; 
+    width:325px;
+    position:relative; 
+    margin:0 0 0 40px;
+    display:block;
+}
+
+.input-data input{
+    height:100%;
+    width:100%;
+    border:none;
+    border-bottom:2px solid white;
+    background:none;
+    outline:none;
+    color:white;
+    font-size:20px;
+    transition: all 0.3s ease;
+}
+
+.input-data label{
+    position: absolute;
+    font-size:20px;
+    bottom:20px;
+    left:10px   ;
+    color:white;
+    pointer-events: none;
+}
+
+.input-data input:focus{
+    border-bottom:2px solid yellow;
+}
+
+.input-data input:not(:placeholder-shown) ~label,
+.input-data input:focus ~label{
+    transform:translateY(-20px);
+    transition: all 0.3s ease;
+    font-size:15px;
+}
+
+.select{
+    height:50px; 
+    width:325px;
+    position:relative; 
+    display:block;
+    border:none;
+    border-bottom:2px solid white;
+    background:none;
+    outline:none;
+    color:white;
+    font-size:20px;
+}
+
+.select option{
+    color:white;
+    background-color:#151515;
+}
+
+.select:valid ~label,
+.select:focus ~label{
+    transform:translateY(-20px);
+    transition: all 0.3s ease;
+    font-size:15px;
+}
+
+.blackInput:-webkit-autofill,
+.blackInput:-webkit-autofill:hover, 
+.blackInput:-webkit-autofill:focus, 
+.blackInput:-webkit-autofill:active{
+     transition: background-color 5000s ease-in-out 0s;
+     -webkit-text-fill-color: white !important;
+}
+
+input[type=time],
+#date{
+  color-scheme: dark;
+}
+
+.pagination{
+    height:50px;
+    padding:0px 5px;
+    width:auto;
+    margin:auto;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.pagination li{
+    list-style:none;
+    padding:5px 10px;
+    font-weight: bold;
+    border: 1px solid #cccccc;
+}
+
+a{
+    color:white; 
+    text-decoration: none;
+}

@@ -1,0 +1,210 @@
+body{
+    background-color: #151515;
+}
+
+
+th{
+    text-align: center;
+    background-color:white;
+    height: 50px;
+    font-size: 25px;
+    position: sticky;
+    top: 0px;
+    width: 800px;
+    color: black;
+}
+
+td{
+    text-align: center;
+    height: 30px;
+    font-size: 20px;
+    
+}
+
+tr:nth-child(even){
+    background-color: #262626;
+}
+
+tr{
+    background-color: black;
+    color: white;
+    height: 60px;
+}
+
+tr:hover {
+    background-color: #ffe229;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+    font-family: sans-serif;
+    border: 1px solid;
+}
+
+.searchSelection{
+    width: 200px;
+    height: 35px;
+    background-color: white;
+    color: black;
+    position: sticky;
+    top: 0px;
+}
+
+
+.Scroll{
+    max-height: 600px;
+    overflow-y: scroll;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.inside{
+    background-color: #eebc1d;
+    width: 1100px;
+    height: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.selection{
+     margin-left: 60%;
+     
+}
+
+.container1{
+    width:70%;
+    height:700px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: black;
+}
+
+.search{
+    margin-left: 53px;
+}
+
+.refund{
+    margin-left: auto;
+    margin-right: auto;
+    font-family: sans-serif;
+    background-color:black;
+}
+
+.th1{
+    background-color: white;
+    color: black;
+}
+
+.trRefund{
+    background-color: black;
+    color: white
+}
+
+.trRefund:nth-child(even){
+    background-color: #383838;
+}
+
+.trRefund:hover {
+    background-color: #ffe229;
+}
+
+.container2{
+    width: 600px;
+    height: 200px;
+    background-color: gray;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
+    
+    
+}
+
+.input1{
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 0;
+    -webkit-appearance: none;
+    border: 1px solid transparent;
+    
+}
+
+.label1{
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 0;
+    border: 1px solid transparent;
+    background-color: black;
+    color: white;
+}
+
+.form1{
+    padding: 60px;
+    text-align: center;
+}
+
+.Submit1{
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 0;
+    -webkit-appearance: none;
+    border: 1px solid transparent;
+}
+
+.container3{
+    max-height: 600px;
+    overflow-y: scroll;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.th3{
+    background-color: white;
+    color: black;
+    width: 500px;
+}
+
+.tr2{
+    background-color: black;
+    color: white;
+}
+
+.tr2:nth-child(even){
+    background-color: #262626;
+    color: white;
+}
+
+.tr2:hover {
+    background-color: #ffe229;
+}
+
+.container4{
+    width: 900px;
+    height: 200px;
+    background-color: gray;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
+}
+
+.saleReporttable{
+    font-size: 10px;
+}
+
+.refundsearch{
+    margin-left: 120px;
+    width: 200px;
+    height: 40px;
+}
+
+.Moviesearch{
+    margin-left: 70px;
+    height: 45px;
+    width: 200px;
+}
+

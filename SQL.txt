@@ -1,0 +1,1063 @@
+CREATE TABLE movie
+(	movie_ID		VARCHAR(4) 	NOT NULL primary key,
+	movie_title		VARCHAR(30) NOT NULL,
+	duration		INTEGER	NOT NULL,
+	release_date	DATE		NOT NULL,
+	synopsis		VARCHAR(500)NOT NULL,
+	director		VARCHAR(30)	NOT NULL,
+	distributor		VARCHAR(30)	NOT NULL,
+	ageRating		VARCHAR(3)		NOT NULL,
+	poster			BLOB
+);
+
+CREATE TABLE actor
+(	actor_ID		VARCHAR(4) 	NOT NULL primary key,
+	actor_name		VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE CASTS(
+      movie_ID		VARCHAR(4) 	NOT NULL,
+	actor_ID		VARCHAR(4) 	NOT NULL,
+primary key(movie_ID,actor_ID),
+FOREIGN KEY (movie_ID) REFERENCES MOVIE(movie_id),
+FOREIGN KEY (actor_ID) REFERENCES ACTOR(actor_id)	
+);
+
+CREATE Table Hall (
+hall_no varchar(3) Not NULL,
+row  int NOT NULL,
+columns int NOT NULL,
+Primary Key (Hall_no)
+);	
+
+CREATE Table Schedule (
+schedule_no varchar(7) Not NULL,
+movie_ID varchar(4) Not NULL,
+hall_no varchar(3) Not NULL,
+schedule_time TIME NOT NULL,
+schedule_date DATE NOT NULL,
+PRIMARY KEY (schedule_no),
+FOREIGN KEY (movie_ID) REFERENCES movie(movie_ID),
+FOREIGN KEY (hall_no) REFERENCES hall(hall_no)
+);	
+
+CREATE TABLE Customer (
+   cust_ID              VARCHAR(5) not null primary key,
+   cust_name           	VARCHAR(50) not null,     
+   ic_no                VARCHAR(16) not null,
+   email           	VARCHAR(50) not null unique,
+   cust_password        VARCHAR(16) not null,
+   phone_no         	BIGINT not null,
+   security_question    VARCHAR(255) not null,  
+   answer 		VARCHAR(50) not null,
+   point                INTEGER
+);
+
+CREATE TABLE Card (
+   card_no		VARCHAR(16) not null primary key,
+   cust_ID		VARCHAR(5) not null,
+   cvv			VARCHAR(3) not null,
+   cardholder_name	VARCHAR(50) not null,
+   expiry_date		DATE not null,
+   FOREIGN KEY (cust_ID) REFERENCES Customer(cust_ID)
+);
+
+CREATE TABLE Payment(
+	payment_no VARCHAR(6) not null primary key,
+	card_no VARCHAR(16) NOT NULL,
+	amount NUMERIC(6,2) NOT NULL,
+	payment_time TIME NOT NULL,
+	payment_date DATE NOT NULL,
+	child_qty INTEGER NOT NULL,
+	adult_qty INTEGER NOT NULL,
+	foreign key (card_no) references Card(card_no)
+);
+
+CREATE TABLE Ticket(
+	ticket_no VARCHAR(10) not null primary key,
+	payment_no VARCHAR(6) NOT NULL,
+	schedule_no VARCHAR(7) NOT NULL,
+	price NUMERIC(4,2) NOT NULL,
+	category VARCHAR(5) NOT NULL,
+	seat_no VARCHAR(3) NOT NULL,
+	foreign key (payment_no) references Payment(payment_no),
+	foreign key (schedule_no) references Schedule(schedule_no)
+);
+
+CREATE TABLE Staff (
+	staff_ID varchar(4) NOT NULL,
+	staff_name varchar(255) NOT NULL,
+	staff_email varchar(255) NOT NULL,
+	password varchar(255) NOT NULL,
+	role varchar(50) NOT NULL,
+	staff_phone_no varchar(12) NOT NULL,
+	security_question varchar(255),
+	answer varchar(255),
+    PRIMARY KEY (staff_ID)
+);
+
+CREATE TABLE Review (
+	review_no varchar(6) NOT NULL,
+	cust_ID varchar(5) NOT NULL,
+	comment varchar(2000),
+	rating int NOT NULL CHECK(rating BETWEEN 1 AND 5),
+	response varchar(2000),
+    PRIMARY KEY (review_no),
+    FOREIGN KEY (cust_ID) REFERENCES Customer(cust_ID)
+);
+
+CREATE TABLE refund(
+	refund_no	VARCHAR(8) NOT NULL,
+	payment_no      VARCHAR(6) NOT NULL,
+	staff_id	VARCHAR(4)NOT NULL,
+	refund_date	Date NOT NULL,
+	reason		VARCHAR(100) NOT NULL ,
+	status		char(1) NOT NULL,
+PRIMARY KEY(refund_no),
+FOREIGN KEY(payment_no) REFERENCES payment(payment_no),
+FOREIGN KEY(staff_ID) REFERENCES staff(staff_ID),
+constraint chk_status check (UPPER(status) in ('A','U','P'))
+);
+
+CREATE TABLE voucher(
+	voucher_no	VARCHAR(8) NOT NULL,
+	cust_ID		VARCHAR(5) NOT NULL,
+	dis_amount	Int NOT NULL,
+PRIMARY KEY(voucher_no),
+FOREIGN KEY(cust_ID) REFERENCES customer(cust_ID)
+);
+
+INSERT INTO movie VALUES('M001','The Batman',126,Date('2022-04-14'),'Robert Pattinson stars as the titular Caped Crusader in this big screen adaptation directed by Matt Reeves, which focuses on a younger Batman.',
+'Matt Reaves','Warner Bros Pictures','P13',NULL);
+INSERT INTO movie VALUES('M002','The Bad Guy',100,Date('2022-04-14'),'This animated film is based on Aaron Blabey`s book series of the same name. Five bad guys, namely Mr. Wolf, Mr. Snake, Mr. Piranha, Mr. Shark and Ms. Tarantula, have been pulling off legendary heists their whole lives. Now it''s time for them to do their most challenging job yet: being the good guys.',
+'Perifel','United International Pictures','P13',NULL);
+INSERT INTO movie VALUES('M003','Don''t Forget I Love You',127,DATE('2022-02-10'),'Music composer Yao (by Jasper Liu) is at the peak of his career when a brain tumour surgery leaves him with anterograde amnesia. As such, his memory resets everyday, that he can only recall past information but not new events. Unable to perform the simplest day-to-day tasks on his own, Yao hits rock bottom until meeting his psychotherapist, Xingyue (by Na Zha).',
+'Barbara Wong','Mega Films Distributions','P13',NULL);
+INSERT INTO movie VALUES('M004','The Contractor',105,DATE('2022-04-21'),'Special Forces Sgt. James Harper (Pine) is involuntarily discharged from the Army and cut off from his pension. In debt, out of options and desperate to provide for his family, Harper contracts with a private underground military force. When the very first assignment goes awry, the elite soldier finds himself caught in a dangerous conspiracy and on the run for his life.',
+'Tarik Saleh','ATriNaga','18',NULL);
+INSERT INTO movie VALUES('M005','Uncharted',115,DATE('2022-04-21'),'A treasure hunter named Nathan Drake, a descendant of Sir Francis Drake, believes he has found the location of the legendary El Dorado, the fabled South American golden city. With the help of his mentor and an ambitious journalist, he works to uncover its secrets while surviving on an island filled with pirates and mercenaries. When a mysterious enemy joins the search, it quickly becomes competitive.',
+'Ruben Fleischer','Sony Pictures Entertainment','P13',NULL);
+INSERT INTO movie VALUES('M006','Sing 2',110,DATE('2021-12-30'),'Can-do koala Buster Moon and his all-star cast of animal performers prepare to launch a dazzling stage extravaganza in the glittering entertainment capital of the world. There''s just one hitch -- he has to find and persuade the world''s most reclusive rock star to join them. What begins as Buster''s dream of big-time success soon becomes an emotional reminder of the power of music to heal even the most broken heart.',
+'Garth Jennings','United International Pictures','U',NULL);
+INSERT INTO movie VALUES('M007','Jujutsu Kaisen 0',105,DATE('2022-04-07'),'Yuta Okkotsu is a nervous high school student who is suffering from a serious problem—his childhood friend Rika has turned into a Curse and won''t leave him alone. Since Rika is no ordinary Curse, his plight is noticed by Satoru Gojo, a teacher at Jujutsu High, a school where fledgling exorcists learn how to combat Curses. Gojo convinces Yuta to enroll, but can he learn enough in time to confront the Curse that haunts him?',
+'Matt Reaves','ATriNaga','P13',NULL);
+INSERT INTO movie VALUES('M008','Haunted Tales',100,DATE('2022-04-14'),'In the middle of one night, Peera, a businessman with obscure pasts, takes his ride home in a taxi. On the way, he notices that unfamiliar routes are taken. The driver talks strangely about those dark secrets the passenger keeps hidden.',
+'Suphakorn Riansuwan','GSCM','18',NULL);
+INSERT INTO movie VALUES('M009','Sonic The Hedgehog 2',120,DATE('2022-04-28'),'The world''s favorite blue hedgehog is back for a next-level adventure in SONIC THE HEDGEHOG 2. After settling in Green Hills, Sonic is eager to prove he has what it takes to be a true hero. His test comes when Dr. Robotnik returns, this time with a new partner, Knuckles, in search for an emerald that has the power to destroy civilizations. Sonic teams up with his own sidekick, Tails, and together they embark on a globe-trotting journey to find the emerald before it falls into the wrong hands.',
+'Jeff Fowler','United International Pictures','TBC',NULL);
+INSERT INTO movie VALUES('M010','Morbius',110,DATE('2022-04-28'),'Dangerously ill with a rare blood disorder and determined to save others suffering his same fate, Dr. Morbius attempts a desperate gamble. While it seems to be a radical success at first, a darkness inside him is unleashed when his experiment goes wrong and he inadvertently infects himself with vampirism instead. What at first appears to be a radical success has soon revealed itself to be a remedy potentially worse than the disease.',
+'Daniel Espinosa','Sony Pictures Entertainment','TBC',NULL);
+		
+INSERT INTO actor VALUES('A001','Robert Pattinson');
+INSERT INTO actor VALUES('A002','Zoe Kravitz');
+INSERT INTO actor VALUES('A003','Paul Dano');
+INSERT INTO actor VALUES('A004','Jeffrey Wright');
+INSERT INTO actor VALUES('A005','John Turturro');
+INSERT INTO actor VALUES('A006','Peter Sarsgaard');
+INSERT INTO actor VALUES('A007','Jayme Lawson');
+INSERT INTO actor VALUES('A008','Andy Serkis');
+INSERT INTO actor VALUES('A009','Colin Farrell');
+
+INSERT INTO actor VALUES('A010','Sam Rockwell');
+INSERT INTO actor VALUES('A011','Marc Maron');
+INSERT INTO actor VALUES('A012','Craig Robinson');
+INSERT INTO actor VALUES('A013','Anthony Ramos');
+INSERT INTO actor VALUES('A014','Awkwafina');
+INSERT INTO actor VALUES('A015','Richard Ayoade');
+INSERT INTO actor VALUES('A016','Zazie Beetz');
+INSERT INTO actor VALUES('A017','Lilly Singh');
+INSERT INTO actor VALUES('A018','Alex Borstein');
+
+INSERT INTO actor VALUES('A019','Na Zha');
+INSERT INTO actor VALUES('A020','Jasper Liu');
+INSERT INTO actor VALUES('A021','Zhang XinYi');
+INSERT INTO actor VALUES('A022','Edward Ma');
+INSERT INTO actor VALUES('A023','Zhang Yang');
+INSERT INTO actor VALUES('A024','Luo Ji');
+
+INSERT INTO actor VALUES('A025','Chris Pine');
+INSERT INTO actor VALUES('A026','Ben Foster');
+INSERT INTO actor VALUES('A027','Kiefer Sutherland');
+INSERT INTO actor VALUES('A028','Gillian Jacobs');
+
+INSERT INTO actor VALUES('A029','Tom Holland');
+INSERT INTO actor VALUES('A030','Mark Wahlberg');
+INSERT INTO actor VALUES('A031','Antonio Banderas');
+INSERT INTO actor VALUES('A032','Sophia Taylor Ali');
+INSERT INTO actor VALUES('A033','Tati Gabrielle');
+
+INSERT INTO actor VALUES('A034','Matthew McConaughey');
+INSERT INTO actor VALUES('A035','Reese Witherspoon');
+INSERT INTO actor VALUES('A036','Scarlett Johansson');
+
+INSERT INTO actor VALUES('A037','Megumi Ogata');
+INSERT INTO actor VALUES('A038','Kana Hanazawa');
+INSERT INTO actor VALUES('A039','Mikako Komatsu');
+INSERT INTO actor VALUES('A040','Kōki Uchiyama');
+INSERT INTO actor VALUES('A041','Tomokazu Seki');
+INSERT INTO actor VALUES('A042','Yuichi Nakamura');
+INSERT INTO actor VALUES('A043','Takahiro Sakurai');
+
+INSERT INTO actor VALUES('A044','Thaneth Warakulnukroh');
+INSERT INTO actor VALUES('A045','Kannarun Wongkajornklai');
+INSERT INTO actor VALUES('A046','Prin Suparat');
+
+INSERT INTO actor VALUES('A047','James Marsden');
+INSERT INTO actor VALUES('A048','Ben Schwartz');
+INSERT INTO actor VALUES('A049','Tika Sumpter');
+INSERT INTO actor VALUES('A050','Natasha Rothwell');
+INSERT INTO actor VALUES('A051','Adam Pally');
+INSERT INTO actor VALUES('A052','Shemar Moore');
+INSERT INTO actor VALUES('A053','Colleen O’Shaughnessey');
+INSERT INTO actor VALUES('A054','Idris Elba');
+INSERT INTO actor VALUES('A055','Jim Carrey');
+
+INSERT INTO actor VALUES('A056','Jared Leto');
+INSERT INTO actor VALUES('A057','Adria Arjona');
+INSERT INTO actor VALUES('A058','Jared Harris');
+INSERT INTO actor VALUES('A059','Tyrese Gibson');
+INSERT INTO actor VALUES('A060','Matt Smith');
+
+INSERT INTO casts VALUES('M001','A001');
+INSERT INTO casts VALUES('M001','A002');
+INSERT INTO casts VALUES('M001','A003');
+INSERT INTO casts VALUES('M001','A004');
+INSERT INTO casts VALUES('M001','A005');
+INSERT INTO casts VALUES('M001','A006');
+INSERT INTO casts VALUES('M001','A007');
+INSERT INTO casts VALUES('M001','A008');
+INSERT INTO casts VALUES('M001','A009');
+INSERT INTO casts VALUES('M002','A010');
+INSERT INTO casts VALUES('M002','A011');
+INSERT INTO casts VALUES('M002','A012');
+INSERT INTO casts VALUES('M002','A013');
+INSERT INTO casts VALUES('M002','A014');
+INSERT INTO casts VALUES('M002','A015');
+INSERT INTO casts VALUES('M002','A016');
+INSERT INTO casts VALUES('M002','A017');
+INSERT INTO casts VALUES('M002','A018');
+INSERT INTO casts VALUES('M003','A019');
+INSERT INTO casts VALUES('M003','A020');
+INSERT INTO casts VALUES('M003','A021');
+INSERT INTO casts VALUES('M003','A022');
+INSERT INTO casts VALUES('M003','A023');
+INSERT INTO casts VALUES('M003','A024');
+INSERT INTO casts VALUES('M004','A025');
+INSERT INTO casts VALUES('M004','A026');
+INSERT INTO casts VALUES('M004','A027');
+INSERT INTO casts VALUES('M004','A028');
+INSERT INTO casts VALUES('M005','A029');
+INSERT INTO casts VALUES('M005','A030');
+INSERT INTO casts VALUES('M005','A031');
+INSERT INTO casts VALUES('M005','A032');
+INSERT INTO casts VALUES('M005','A033');
+INSERT INTO casts VALUES('M006','A034');
+INSERT INTO casts VALUES('M006','A035');
+INSERT INTO casts VALUES('M006','A036');
+INSERT INTO casts VALUES('M007','A037');
+INSERT INTO casts VALUES('M007','A038');
+INSERT INTO casts VALUES('M007','A039');
+INSERT INTO casts VALUES('M007','A040');
+INSERT INTO casts VALUES('M007','A041');
+INSERT INTO casts VALUES('M007','A042');
+INSERT INTO casts VALUES('M007','A043');
+INSERT INTO casts VALUES('M008','A044');
+INSERT INTO casts VALUES('M008','A045');
+INSERT INTO casts VALUES('M008','A046');
+INSERT INTO casts VALUES('M009','A047');
+INSERT INTO casts VALUES('M009','A048');
+INSERT INTO casts VALUES('M009','A049');
+INSERT INTO casts VALUES('M009','A050');
+INSERT INTO casts VALUES('M009','A051');
+INSERT INTO casts VALUES('M009','A052');
+INSERT INTO casts VALUES('M009','A053');
+INSERT INTO casts VALUES('M009','A054');
+INSERT INTO casts VALUES('M009','A055');
+INSERT INTO casts VALUES('M010','A056');
+INSERT INTO casts VALUES('M010','A057');
+INSERT INTO casts VALUES('M010','A058');
+INSERT INTO casts VALUES('M010','A059');
+INSERT INTO casts VALUES('M010','A060');
+
+insert into Hall Values ('H01',8,10);
+insert into Hall Values ('H02',8,10);
+insert into Hall Values ('H03',7,8);
+insert into Hall Values ('H04',6,9);
+insert into Hall Values ('H05',5,10);
+insert into Hall Values ('H06',4,10);
+insert into Hall Values ('H07',5,8);
+insert into Hall Values ('H08',6,7);
+
+INSERT INTO schedule Values ('SC00001','M006','H02',TIME('18:30'),DATE('2022-01-09'));
+INSERT INTO schedule Values ('SC00002','M003','H04',TIME('19:00'),DATE('2022-02-20'));
+INSERT INTO schedule Values ('SC00003','M001','H01',TIME('08:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00004','M001','H03',TIME('10:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00005','M001','H05',TIME('15:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00006','M002','H02',TIME('10:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00007','M002','H04',TIME('12:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00008','M002','H01',TIME('15:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00009','M002','H06',TIME('20:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00010','M002','H07',TIME('23:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00011','M003','H08',TIME('09:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00012','M003','H01',TIME('11:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00013','M003','H04',TIME('16:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00014','M003','H01',TIME('19:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00015','M003','H05',TIME('22:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00016','M004','H08',TIME('13:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00017','M004','H03',TIME('14:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00018','M004','H07',TIME('16:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00019','M004','H04',TIME('19:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00020','M004','H08',TIME('23:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00021','M005','H06',TIME('09:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00022','M005','H05',TIME('12:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00023','M005','H03',TIME('18:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00024','M005','H01',TIME('22:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00025','M005','H03',TIME('23:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00026','M006','H04',TIME('09:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00027','M006','H06',TIME('12:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00028','M006','H02',TIME('14:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00029','M006','H02',TIME('22:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00030','M007','H07',TIME('08:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00031','M007','H07',TIME('12:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00032','M007','H06',TIME('16:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00033','M008','H05',TIME('08:30'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00034','M008','H05',TIME('19:00'),DATE('2022-04-23'));
+INSERT INTO
+schedule Values ('SC00035','M008','H01',TIME('23:00'),DATE('2022-04-23'));
+
+INSERT INTO
+schedule Values ('SC00036','M001','H01',TIME('08:30'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00037','M001','H06',TIME('16:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00038','M001','H08',TIME('22:50'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00039','M001','H06',TIME('23:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00040','M002','H02',TIME('09:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00041','M002','H05',TIME('17:30'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00042','M002','H05',TIME('21:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00043','M003','H03',TIME('10:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00044','M003','H08',TIME('18:30'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00045','M003','H01',TIME('19:30'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00046','M004','H04',TIME('12:30'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00047','M004','H04',TIME('21:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00048','M004','H07',TIME('10:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00049','M004','H03',TIME('14:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00050','M005','H05',TIME('12:30'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00051','M005','H03',TIME('20:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00052','M005','H01',TIME('12:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00053','M005','H02',TIME('17:30'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00054','M006','H06',TIME('12:30'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00055','M006','H02',TIME('21:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00056','M006','H04',TIME('15:45'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00057','M006','H01',TIME('16:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00058','M007','H07',TIME('14:30'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00059','M007','H01',TIME('22:30'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00060','M007','H04',TIME('09:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00061','M007','H05',TIME('08:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00062','M007','H07',TIME('23:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00063','M008','H08',TIME('15:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00064','M008','H07',TIME('18:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00065','M008','H06',TIME('9:00'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00066','M008','H06',TIME('19:30'),DATE('2022-04-24'));
+INSERT INTO
+schedule Values ('SC00067','M008','H08',TIME('10:00'),DATE('2022-04-24'));
+
+INSERT INTO
+schedule Values ('SC00068','M001','H01',TIME('13:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00069','M002','H02',TIME('12:30'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00070','M003','H03',TIME('13:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00071','M004','H04',TIME('13.00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00072','M005','H05',TIME('13:30'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00073','M006','H06',TIME('19:30'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00074','M007','H07',TIME('17:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00075','M008','H08',TIME('18:30'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00076','M001','H03',TIME('19:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00077','M002','H04',TIME('20:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00078','M003','H05',TIME('21:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00079','M004','H06',TIME('11:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00080','M005','H07',TIME('23:30'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00081','M006','H02',TIME('23:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00082','M007','H01',TIME('09:30'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00083','M008','H08',TIME('10:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00084','M001','H07',TIME('9:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00085','M002','H06',TIME('15:30'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00086','M003','H05',TIME('10:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00087','M004','H04',TIME('9:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00088','M005','H03',TIME('9:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00089','M006','H02',TIME('16:30'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00090','M004','H01',TIME('22:15'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00091','M008','H04',TIME('23:30'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00092','M001','H05',TIME('17:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00093','M002','H06',TIME('23:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00094','M003','H07',TIME('20:30'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00095','M004','H08',TIME('22:30'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00096','M005','H03',TIME('23:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00097','M006','H02',TIME('9:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00098','M007','H01',TIME('19:00'),DATE('2022-04-25'));
+INSERT INTO
+schedule Values ('SC00099','M008','H04',TIME('16:30'),DATE('2022-04-25'));
+
+INSERT INTO
+schedule Values ('SC00100','M001','H02',TIME('11:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00101','M001','H02',TIME('18:30'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00102','M001','H04',TIME('8:30'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00103','M001','H06',TIME('20:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00104','M002','H03',TIME('12:30'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00105','M002','H03',TIME('19:30'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00106','M002','H05',TIME('12:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00107','M002','H07',TIME('20:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00108','M003','H04',TIME('15:30'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00109','M003','H04',TIME('19:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00110','M003','H06',TIME('13:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00111','M003','H08',TIME('21:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00112','M004','H05',TIME('15:30'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00113','M004','H05',TIME('23:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00114','M004','H01',TIME('14:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00115','M004','H02',TIME('22:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00116','M005','H06',TIME('16:30'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00117','M005','H06',TIME('23:30'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00118','M005','H02',TIME('15:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00119','M005','H03',TIME('23:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00120','M006','H07',TIME('15:45'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00121','M006','H07',TIME('08:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00122','M006','H03',TIME('16:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00123','M006','H04',TIME('23:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00124','M007','H08',TIME('17:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00125','M007','H08',TIME('09:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00126','M007','H04',TIME('12:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00127','M007','H05',TIME('08:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00128','M008','H01',TIME('19:30'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00129','M008','H03',TIME('9:10'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00130','M008','H05',TIME('19:00'),DATE('2022-04-26'));
+INSERT INTO
+schedule Values ('SC00131','M008','H06',TIME('09:00'),DATE('2022-04-26'));
+
+INSERT INTO
+schedule Values ('SC00132','M005','H07',TIME('22:30'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00133','M007','H02',TIME('10:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00134','M006','H03',TIME('11:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00135','M005','H04',TIME('12:30'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00136','M004','H05',TIME('13:30'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00137','M003','H06',TIME('14:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00138','M007','H07',TIME('15:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00139','M001','H08',TIME('16:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00140','M008','H03',TIME('17:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00141','M007','H04',TIME('21:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00142','M006','H05',TIME('21:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00143','M005','H06',TIME('23:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00144','M004','H07',TIME('19:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00145','M003','H08',TIME('19:30'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00146','M004','H08',TIME('23:30'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00147','M001','H02',TIME('19:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00148','M008','H04',TIME('09:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00149','M007','H05',TIME('10:30'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00150','M008','H06',TIME('10:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00151','M005','H07',TIME('11:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00152','M004','H08',TIME('13:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00153','M003','H02',TIME('15:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00154','M002','H02',TIME('23:30'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00155','M001','H03',TIME('20:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00156','M008','H04',TIME('17:30'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00157','M007','H05',TIME('17:30'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00158','M006','H06',TIME('19:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00159','M008','H01',TIME('09:30'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00160','M002','H01',TIME('23:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00161','M003','H01',TIME('19:00'),DATE('2022-04-27'));
+INSERT INTO
+schedule Values ('SC00162','M002','H01',TIME('15:00'),DATE('2022-04-27'));
+
+
+INSERT INTO Customer VALUES ('C0001','Shahida Akashah','020101070295','Akashah@gmail.com','85142981bBG',60174703281,'What is the name of your favourite pet?','Sparkles',20);
+INSERT INTO Customer VALUES ('C0002','Mah Bun Joy','981210021294','BunJoy@gmail.com','Al1432567bK',6045320919,'What is the name of your favourite pet?','Oreo',40);
+INSERT INTO Customer VALUES ('C0003','Ang Rui Wo','010923030233','RuiWo@yahoo.com','Ruii4237ok7',601123255870,'What is the name of your favourite pet?','Orange',60);
+INSERT INTO Customer VALUES ('C0004','Chanturu Dhaliwal','971203026934','Dhaliwal@gmail.com','dpe245782SS',60159521145,'What is the name of your favourite pet?','Kitty',50);
+INSERT INTO Customer VALUES ('C0005','Soon Pou Ann','000924033928','PouAnn@hotmail.com','147729Van00',60324311974,'What is the name of your favourite pet?','Buddy',150);
+
+INSERT INTO Customer VALUES ('C0006','Mah Kia Niang','880106080926','KiaNiang@gmail.com','Fores324517',60165022464,'What is your father''s name?','John Wick',70);
+INSERT INTO Customer VALUES ('C0007','Teo Fei Ruo','990227085826','feiruoteo@hotmail.com','Ala34521mie',60171165521,'What is your father''s name?','Jack Tan',10);
+INSERT INTO Customer VALUES ('C0008','Nuur Sitti binti Haliem','740308081015','Haliem7@gmail.com','hake34512Hu',60155949119,'What is the name of best friend','Aisya',120);
+INSERT INTO Customer VALUES ('C0009','Siong Rong Shian','830429080923','RongShian@gmail.com','Amc23110345',601119951485,'What is your mother''s name?','Xing Ying',150);
+INSERT INTO Customer VALUES ('C0010','Ariqah Sanorhizam','960510081172','Ariqah@hotmail.com','Shy132439ll',60142181850,'What is your father''s name?','Altaf',90);
+
+INSERT INTO Customer VALUES ('C0011','Rajeswary Kathigasu','800805050178','Kathigasu@gmail.com','Lu1547948ck',60154800839,'What is your favourite food','Fried Rice',0);
+INSERT INTO Customer VALUES ('C0012','Shannon Isitt','880806050926','sisittd@gmail.com','Sisi15758on',6092192497,'What is your favourite food','Nasi Kandar',150);
+INSERT INTO Customer VALUES ('C0013','Er Pik Nai','800805050170','PikNaiEr@gmail.com','Tcotte14132',60159758237,'What is your favourite food','Egg',0);
+INSERT INTO Customer VALUES ('C0014','Muhammed Haji','890411012216','Haji@gmail.com','lee23542452',60154656910,'What is your favourite food','Fried Chicken',0);
+INSERT INTO Customer VALUES ('C0015','Low Hoy Zi','830411014538','HoyZilow@gmail.com','Co534662Lu1',601118999680,'What is your favourite food','Bakua',0);
+
+INSERT INTO Customer VALUES ('C0016','Koay Too Xu','890411013813','TooXuKoay@gmail.com','esia122Bert',601115814780,'What is the name of your favourite pet?','Pom',60);
+INSERT INTO Customer VALUES ('C0017','Chang Nien Chia','030101070295','chang@gmail.com','cnc231bc',60192206271,'What is the name of your favourite pet?','Spots',90);
+INSERT INTO Customer VALUES ('C0018','Varatharaju','920612130025','vara@gmail.com','vara12345',60174436761,'What is the name of your favourite pet?','5 Miles',25);
+INSERT INTO Customer VALUES ('C0019','Vijaya Kandasamy','950616130189','vijayak@gmail.com','vkanda90',60125734467,'What is the name of your favourite pet?','Sparkles',70);
+INSERT INTO Customer VALUES ('C0020','Tan Cheng Lok','930619130915','tcl@gmail.com','chengLok00',60134861839,'What is the name of your favourite pet?','Eagly',120);
+
+INSERT INTO Customer VALUES ('C0021','Kia Yok Chin','960611130916','kiayc@gmail.com','yokchinS1',60113409911,'What is your mother''s name?','Lisa',170);
+INSERT INTO Customer VALUES ('C0022','Ong Woo Luan','880710120294','woo@gmail.com','Version1',60152462859,'What is your mother''s name?','Wong Kam Thoy',200);
+INSERT INTO Customer VALUES ('C0023','Ng Huan Lun','950612130915','nhl@gmail.com','abc123DEF',60189532893,'What is your father''s name?','Neoh Shan',30);
+INSERT INTO Customer VALUES ('C0024','Hong Thong Mew','840709120182','hong@gmail.com','blaBlaB1a',60136105794,'What is your father''s name?','Kelvin Ong',0);
+INSERT INTO Customer VALUES ('C0025','Kam Jian Jei','820708120132','jianjei@gmail.com','am1tofoabc',60174090019,'What is your father''s name?','Justin Ooi',0);
+
+INSERT INTO Customer VALUES ('C0026','Alice Tan','830712120628','alice@gmail.com','h3lpMePls',601314838607,'In what city were you born?','Georgetown',0);
+INSERT INTO Customer VALUES ('C0027','Loi Len Shek','730402060282','lls@gmail.com','okakaDaB3st',60169969430,'In what city were you born?','Georgetown',40);
+INSERT INTO Customer VALUES ('C0028','Selina Wong','820312080025','selina@gmail.com','jaga1moeee',60814842361,'What is your favourite food','char kuey teow',0);
+INSERT INTO Customer VALUES ('C0029','Michele Wu','790407060826','michele@gmail.com','abcMich12',60195020129,'What is your favourite food','Tomyam',0);
+INSERT INTO Customer VALUES ('C0030','Selvarajoo','740408060815','selva@gmail.com','Selva123',60143582210,'What is your favourite food','apple',0);
+
+INSERT INTO Card VALUES ('5553074972866912','C0001','123','Shahida Akashah','2023-01-01');
+INSERT INTO Card VALUES ('5480547520581628','C0001','122','Nurul Akashah','2024-02-01');
+INSERT INTO Card VALUES ('5147587269776992','C0005','422','Soon Pou Ann','2024-11-01');
+INSERT INTO Card VALUES ('5342518551748053','C0005','521','Teh Kai Yao','2023-10-01');
+INSERT INTO Card VALUES ('5266885981584602','C0012','434','Hogan Ng','2025-04-01');
+
+INSERT INTO Card VALUES ('4907741300322083','C0012','125','Shannon Isitt','2025-04-01');
+INSERT INTO Card VALUES ('4884151202040196','C0017','461','Chang Nien Chia','2024-05-01');
+INSERT INTO Card VALUES ('4363130343721906','C0017','321','Chang Xia Yu','2025-06-01');
+INSERT INTO Card VALUES ('4615988286483412','C0027','211','Loi Len Shek','2023-07-01');
+INSERT INTO Card VALUES ('4734216196663188','C0027','424','Lee Xing Hui','2026-08-01');
+
+INSERT INTO Card VALUES ('5485669094752909','C0002','333','Mah Bun Joy','2024-11-01');
+INSERT INTO Card VALUES ('5507783446018903','C0003','346','Ang Rui Wo','2025-12-01');
+INSERT INTO Card VALUES ('5514380238226561','C0004','321','Chanturu Dhaliwal','2024-01-01');
+INSERT INTO Card VALUES ('5327543678643226','C0006','501','Mah Kia Niang','2023-03-01');
+INSERT INTO Card VALUES ('5161181477486247','C0007','403','Teo Fei Ruo','2026-05-01');
+
+INSERT INTO Card VALUES ('4613634253535584','C0008','376','Nuur Sitti binti Haliem','2026-09-01');
+INSERT INTO Card VALUES ('4154335183322318','C0009','078','Siong Rong Shian','2024-07-01');
+INSERT INTO Card VALUES ('4065908326034020','C0010','552','Ariqah Sanorhizam','2025-06-01');
+INSERT INTO Card VALUES ('4301843178010477','C0016','298','Koay Too Xu','2023-01-01');
+INSERT INTO Card VALUES ('4872678292307410','C0018','301','Varatharaju','2025-03-01');
+
+INSERT INTO Card VALUES ('5570578850242763','C0019','502','Vijaya Kandasamy','2025-04-01');
+INSERT INTO Card VALUES ('5102698167103917','C0020','487','Tan Cheng Lok','2024-07-01');
+INSERT INTO Card VALUES ('5453382786299480','C0021','201','Kia Yok Chin','2025-08-01');
+INSERT INTO Card VALUES ('5423594538736166','C0022','390','Ong Woo Luan','2024-01-01');
+INSERT INTO Card VALUES ('5364504053615878','C0023','673','Ng Huan Lun','2026-11-01');
+
+INSERT INTO PAYMENT VALUES ('P00001', '5342518551748053', 53, '13:22:47', DATE('2022-01-07'), 3, 1);
+INSERT INTO PAYMENT VALUES ('P00002', '5147587269776992', 68, '22:37:56', DATE('2022-02-16'), 0, 4);
+
+INSERT INTO PAYMENT VALUES ('P00003', '5553074972866912', 51, '08:09:02', DATE('2022-04-12'), 0, 3);
+INSERT INTO PAYMENT VALUES ('P00004', '5147587269776992', 41, '09:03:22', DATE('2022-04-12'), 2, 1);
+INSERT INTO PAYMENT VALUES ('P00005', '4615988286483412', 70, '09:19:13', DATE('2022-04-12'), 3, 2);
+INSERT INTO PAYMENT VALUES ('P00006', '5514380238226561', 46, '10:02:52', DATE('2022-04-12'), 1, 2);
+INSERT INTO PAYMENT VALUES ('P00007', '4065908326034020', 41, '12:59:55', DATE('2022-04-12'), 2, 1);
+INSERT INTO PAYMENT VALUES ('P00008', '4872678292307410', 46, '16:28:23', DATE('2022-04-12'), 1, 2);
+INSERT INTO PAYMENT VALUES ('P00009', '5364504053615878', 51, '20:44:54', DATE('2022-04-12'), 0, 3);
+INSERT INTO PAYMENT VALUES ('P00010', '5453382786299480', 41, '20:45:02', DATE('2022-04-12'), 2, 1);
+
+INSERT INTO PAYMENT VALUES ('P00011', '5423594538736166', 53, '00:01:09', DATE('2022-04-13'), 3, 1);
+INSERT INTO PAYMENT VALUES ('P00012', '5102698167103917', 68, '02:29:27', DATE('2022-04-13'), 0, 4);
+INSERT INTO PAYMENT VALUES ('P00013', '4154335183322318', 70, '10:42:39', DATE('2022-04-13'), 3, 2);
+INSERT INTO PAYMENT VALUES ('P00014', '4615988286483412', 17, '11:11:32', DATE('2022-04-13'), 0, 1);
+INSERT INTO PAYMENT VALUES ('P00015', '4907741300322083', 58, '13:21:22', DATE('2022-04-13'), 2, 2);
+INSERT INTO PAYMENT VALUES ('P00016', '5485669094752909', 29, '21:32:24', DATE('2022-04-13'), 1, 1);
+INSERT INTO PAYMENT VALUES ('P00017', '5507783446018903', 85, '21:35:37', DATE('2022-04-13'), 0, 5);
+INSERT INTO PAYMENT VALUES ('P00018', '5514380238226561', 17, '23:41:59', DATE('2022-04-13'), 0, 1);
+
+INSERT INTO PAYMENT VALUES ('P00019', '4884151202040196', 34, '04:01:11', DATE('2022-04-14'), 0, 2);
+INSERT INTO PAYMENT VALUES ('P00020', '5161181477486247', 63, '07:57:34', DATE('2022-04-14'), 1, 3);
+INSERT INTO PAYMENT VALUES ('P00021', '5364504053615878', 58, '08:21:26', DATE('2022-04-14'), 2, 2);
+INSERT INTO PAYMENT VALUES ('P00022', '5327543678643226', 34, '10:34:45', DATE('2022-04-14'), 0, 2);
+INSERT INTO PAYMENT VALUES ('P00023', '4613634253535584', 87, '11:42:49', DATE('2022-04-14'), 3, 3);
+INSERT INTO PAYMENT VALUES ('P00024', '4872678292307410', 34, '22:21:54', DATE('2022-04-14'), 0, 2);
+INSERT INTO PAYMENT VALUES ('P00025', '4363130343721906', 17, '22:53:44', DATE('2022-04-14'), 0, 1);
+INSERT INTO PAYMENT VALUES ('P00026', '5570578850242763', 41, '23:29:43', DATE('2022-04-14'), 2, 1);
+
+INSERT INTO PAYMENT VALUES ('P00027', '4301843178010477', 51, '10:12:57', DATE('2022-04-15'), 0, 3);
+INSERT INTO PAYMENT VALUES ('P00028', '4734216196663188', 41, '11:32:14', DATE('2022-04-15'), 2, 1);
+INSERT INTO PAYMENT VALUES ('P00029', '5453382786299480', 46, '13:12:37', DATE('2022-04-15'), 1, 2);
+INSERT INTO PAYMENT VALUES ('P00030', '4154335183322318', 17, '15:42:54', DATE('2022-04-15'), 0, 1);
+INSERT INTO PAYMENT VALUES ('P00031', '5161181477486247', 65, '16:22:33', DATE('2022-04-15'), 4, 1);
+INSERT INTO PAYMENT VALUES ('P00032', '5266885981584602', 97, '17:42:25', DATE('2022-04-15'), 1, 5);
+INSERT INTO PAYMENT VALUES ('P00033', '4363130343721906', 34, '20:21:36', DATE('2022-04-15'), 0, 2);
+INSERT INTO PAYMENT VALUES ('P00034', '5327543678643226', 17, '23:24:43', DATE('2022-04-15'), 0, 1);
+
+INSERT INTO PAYMENT VALUES ('P00035', '5342518551748053', 68, '09:21:22', DATE('2022-04-16'), 0, 4);
+INSERT INTO PAYMENT VALUES ('P00036', '4613634253535584', 34, '11:34:53', DATE('2022-04-16'), 0, 2);
+INSERT INTO PAYMENT VALUES ('P00037', '5485669094752909', 53, '12:12:32', DATE('2022-04-16'), 3, 1);
+INSERT INTO PAYMENT VALUES ('P00038', '5102698167103917', 29, '14:21:24', DATE('2022-04-16'), 1, 1);
+INSERT INTO PAYMENT VALUES ('P00039', '4301843178010477', 77, '15:21:17', DATE('2022-04-16'), 5, 1);
+INSERT INTO PAYMENT VALUES ('P00040', '5570578850242763', 34, '15:42:21', DATE('2022-04-16'), 0, 2);
+INSERT INTO PAYMENT VALUES ('P00041', '5507783446018903', 17, '16:12:13', DATE('2022-04-16'), 0, 1);
+INSERT INTO PAYMENT VALUES ('P00042', '5480547520581628', 46, '16:24:53', DATE('2022-04-16'), 1, 2);
+INSERT INTO PAYMENT VALUES ('P00043', '4065908326034020', 41, '20:21:12', DATE('2022-04-16'), 2, 1);
+INSERT INTO PAYMENT VALUES ('P00044', '5266885981584602', 51, '23:53:21', DATE('2022-04-16'), 0, 3);
+
+INSERT INTO PAYMENT VALUES ('P00045', '5147587269776992', 92, '00:12:51', DATE('2022-04-17'), 2, 4);
+INSERT INTO PAYMENT VALUES ('P00046', '4734216196663188', 63, '02:11:31', DATE('2022-04-17'), 1, 3);
+INSERT INTO PAYMENT VALUES ('P00047', '5423594538736166', 34, '02:21:12', DATE('2022-04-17'), 0, 2);
+INSERT INTO PAYMENT VALUES ('P00048', '4907741300322083', 51, '09:43:21', DATE('2022-04-17'), 0, 3);
+INSERT INTO PAYMENT VALUES ('P00049', '4884151202040196', 63, '10:22:12', DATE('2022-04-17'), 1, 3);
+INSERT INTO PAYMENT VALUES ('P00050', '5342518551748053', 29, '10:33:12', DATE('2022-04-17'), 1, 1);
+INSERT INTO PAYMENT VALUES ('P00051', '5364504053615878', 41, '12:22:54', DATE('2022-04-17'), 2, 1);
+INSERT INTO PAYMENT VALUES ('P00052', '5514380238226561', 97, '12:46:14', DATE('2022-04-17'), 1, 5);
+
+INSERT INTO TICKET VALUES ('A03SC00001', 'P00001', 'SC00001', 17, 'ADULT', 'A03');
+INSERT INTO TICKET VALUES ('A04SC00001', 'P00001', 'SC00001', 12, 'CHILD', 'A04');
+INSERT INTO TICKET VALUES ('A05SC00001', 'P00001', 'SC00001', 12, 'CHILD', 'A05');
+INSERT INTO TICKET VALUES ('A06SC00001', 'P00001', 'SC00001', 12, 'CHILD', 'A06');
+
+INSERT INTO TICKET VALUES ('C01SC00002', 'P00002', 'SC00002', 17, 'ADULT', 'C01');
+INSERT INTO TICKET VALUES ('C02SC00002', 'P00002', 'SC00002', 17, 'ADULT', 'C02');
+INSERT INTO TICKET VALUES ('C03SC00002', 'P00002', 'SC00002', 17, 'ADULT', 'C03');
+
+INSERT INTO TICKET VALUES ('B01SC00005', 'P00003', 'SC00005', 17, 'ADULT', 'B01');
+INSERT INTO TICKET VALUES ('B02SC00005', 'P00003', 'SC00005', 17, 'ADULT', 'B02');
+INSERT INTO TICKET VALUES ('B03SC00005', 'P00003', 'SC00005', 17, 'ADULT', 'B03');
+
+INSERT INTO TICKET VALUES ('A05SC00009', 'P00004', 'SC00009', 17, 'ADULT', 'A05');
+INSERT INTO TICKET VALUES ('A06SC00009', 'P00004', 'SC00009', 12, 'CHILD', 'A06');
+INSERT INTO TICKET VALUES ('A07SC00009', 'P00004', 'SC00009', 12, 'CHILD', 'A07');
+
+INSERT INTO TICKET VALUES ('A01SC00025', 'P00005', 'SC00025', 17, 'ADULT', 'A01');
+INSERT INTO TICKET VALUES ('A02SC00025', 'P00005', 'SC00025', 17, 'ADULT', 'A02');
+INSERT INTO TICKET VALUES ('A03SC00025', 'P00005', 'SC00025', 12, 'CHILD', 'A03');
+INSERT INTO TICKET VALUES ('A04SC00025', 'P00005', 'SC00025', 12, 'CHILD', 'A04');
+INSERT INTO TICKET VALUES ('A05SC00025', 'P00005', 'SC00025', 12, 'CHILD', 'A05');
+
+INSERT INTO TICKET VALUES ('C03SC00036', 'P00006', 'SC00036', 17, 'ADULT', 'C03');
+INSERT INTO TICKET VALUES ('C04SC00036', 'P00006', 'SC00036', 17, 'ADULT', 'C04');
+INSERT INTO TICKET VALUES ('C05SC00036', 'P00006', 'SC00036', 12, 'CHILD', 'C05');
+
+INSERT INTO TICKET VALUES ('C05SC00027', 'P00007', 'SC00027', 17, 'ADULT', 'C05');
+INSERT INTO TICKET VALUES ('C06SC00027', 'P00007', 'SC00027', 12, 'CHILD', 'C06');
+INSERT INTO TICKET VALUES ('C07SC00027', 'P00007', 'SC00027', 12, 'CHILD', 'C07');
+
+INSERT INTO TICKET VALUES ('E05SC00010', 'P00008', 'SC00010', 17, 'ADULT', 'E05');
+INSERT INTO TICKET VALUES ('E06SC00010', 'P00008', 'SC00010', 17, 'ADULT', 'E06');
+INSERT INTO TICKET VALUES ('E07SC00010', 'P00008', 'SC00010', 12, 'CHILD', 'E07');
+
+INSERT INTO TICKET VALUES ('E01SC00016', 'P00009', 'SC00016', 17, 'ADULT', 'E01');
+INSERT INTO TICKET VALUES ('E02SC00016', 'P00009', 'SC00016', 17, 'ADULT', 'E02');
+INSERT INTO TICKET VALUES ('E03SC00016', 'P00009', 'SC00016', 17, 'ADULT', 'E03');
+
+INSERT INTO TICKET VALUES ('A03SC00021', 'P00010', 'SC00021', 17, 'ADULT', 'A03');
+INSERT INTO TICKET VALUES ('A04SC00021', 'P00010', 'SC00021', 12, 'CHILD', 'A04');
+INSERT INTO TICKET VALUES ('A05SC00021', 'P00010', 'SC00021', 12, 'CHILD', 'A05');
+
+INSERT INTO TICKET VALUES ('C04SC00030', 'P00011', 'SC00030', 17, 'ADULT', 'C04');
+INSERT INTO TICKET VALUES ('C05SC00030', 'P00011', 'SC00030', 12, 'CHILD', 'C05');
+INSERT INTO TICKET VALUES ('C06SC00030', 'P00011', 'SC00030', 12, 'CHILD', 'C06');
+INSERT INTO TICKET VALUES ('C07SC00030', 'P00011', 'SC00030', 12, 'CHILD', 'C07');
+
+INSERT INTO TICKET VALUES ('C01SC00041', 'P00012', 'SC00041', 17, 'ADULT', 'C01');
+INSERT INTO TICKET VALUES ('C02SC00041', 'P00012', 'SC00041', 17, 'ADULT', 'C02');
+INSERT INTO TICKET VALUES ('C03SC00041', 'P00012', 'SC00041', 17, 'ADULT', 'C03');
+INSERT INTO TICKET VALUES ('C04SC00041', 'P00012', 'SC00041', 17, 'ADULT', 'C04');
+
+INSERT INTO TICKET VALUES ('A03SC00082', 'P00013', 'SC00082', 17, 'ADULT', 'A03');
+INSERT INTO TICKET VALUES ('A04SC00082', 'P00013', 'SC00082', 17, 'ADULT', 'A04');
+INSERT INTO TICKET VALUES ('A05SC00082', 'P00013', 'SC00082', 12, 'CHILD', 'A05');
+INSERT INTO TICKET VALUES ('A06SC00082', 'P00013', 'SC00082', 12, 'CHILD', 'A06');
+INSERT INTO TICKET VALUES ('A07SC00082', 'P00013', 'SC00082', 12, 'CHILD', 'A07');
+
+INSERT INTO TICKET VALUES ('A03SC00102', 'P00014', 'SC00102', 17, 'ADULT', 'A03');
+
+INSERT INTO TICKET VALUES ('D01SC00072', 'P00015', 'SC00072', 17, 'ADULT', 'D01');
+INSERT INTO TICKET VALUES ('D02SC00072', 'P00015', 'SC00072', 17, 'ADULT', 'D02');
+INSERT INTO TICKET VALUES ('D03SC00072', 'P00015', 'SC00072', 12, 'CHILD', 'D03');
+INSERT INTO TICKET VALUES ('D04SC00072', 'P00015', 'SC00072', 12, 'CHILD', 'D04');
+
+INSERT INTO TICKET VALUES ('E06SC00068', 'P00016', 'SC00068', 17, 'ADULT', 'E06');
+INSERT INTO TICKET VALUES ('E07SC00068', 'P00016', 'SC00068', 12, 'CHILD', 'E07');
+
+INSERT INTO TICKET VALUES ('E01SC00080', 'P00017', 'SC00080', 17, 'ADULT', 'E01');
+INSERT INTO TICKET VALUES ('E02SC00080', 'P00017', 'SC00080', 17, 'ADULT', 'E02');
+INSERT INTO TICKET VALUES ('E03SC00080', 'P00017', 'SC00080', 17, 'ADULT', 'E03');
+INSERT INTO TICKET VALUES ('E04SC00080', 'P00017', 'SC00080', 17, 'ADULT', 'E04');
+INSERT INTO TICKET VALUES ('E05SC00080', 'P00017', 'SC00080', 17, 'ADULT', 'E05');
+
+INSERT INTO TICKET VALUES ('B05SC00058', 'P00018', 'SC00058', 17, 'ADULT', 'B05');
+
+INSERT INTO TICKET VALUES ('A06SC00047', 'P00019', 'SC00047', 17, 'ADULT', 'A06');
+INSERT INTO TICKET VALUES ('A07SC00047', 'P00019', 'SC00047', 17, 'ADULT', 'A07');
+
+INSERT INTO TICKET VALUES ('B01SC00050', 'P00020', 'SC00050', 17, 'ADULT', 'B01');
+INSERT INTO TICKET VALUES ('B02SC00050', 'P00020', 'SC00050', 17, 'ADULT', 'B02');
+INSERT INTO TICKET VALUES ('B03SC00050', 'P00020', 'SC00050', 17, 'ADULT', 'B03');
+INSERT INTO TICKET VALUES ('B04SC00050', 'P00020', 'SC00050', 12, 'CHILD', 'B04');
+
+INSERT INTO TICKET VALUES ('A04SC00060', 'P00021', 'SC00060', 17, 'ADULT', 'A04');
+INSERT INTO TICKET VALUES ('A05SC00060', 'P00021', 'SC00060', 17, 'ADULT', 'A05');
+INSERT INTO TICKET VALUES ('A06SC00060', 'P00021', 'SC00060', 12, 'CHILD', 'A06');
+INSERT INTO TICKET VALUES ('A07SC00060', 'P00021', 'SC00060', 12, 'CHILD', 'A07');
+
+INSERT INTO TICKET VALUES ('C01SC00066', 'P00022', 'SC00066', 17, 'ADULT', 'C01');
+INSERT INTO TICKET VALUES ('C02SC00066', 'P00022', 'SC00066', 17, 'ADULT', 'C02');
+
+INSERT INTO TICKET VALUES ('D02SC00085', 'P00023', 'SC00085', 17, 'ADULT', 'D02');
+INSERT INTO TICKET VALUES ('D03SC00085', 'P00023', 'SC00085', 17, 'ADULT', 'D03');
+INSERT INTO TICKET VALUES ('D04SC00085', 'P00023', 'SC00085', 17, 'ADULT', 'D04');
+INSERT INTO TICKET VALUES ('D05SC00085', 'P00023', 'SC00085', 12, 'CHILD', 'D05');
+INSERT INTO TICKET VALUES ('D06SC00085', 'P00023', 'SC00085', 12, 'CHILD', 'D06');
+INSERT INTO TICKET VALUES ('D07SC00085', 'P00023', 'SC00085', 12, 'CHILD', 'D07');
+
+INSERT INTO TICKET VALUES ('E06SC00095', 'P00024', 'SC00095', 17, 'ADULT', 'E06');
+INSERT INTO TICKET VALUES ('E07SC00095', 'P00024', 'SC00095', 17, 'ADULT', 'E07');
+
+INSERT INTO TICKET VALUES ('C07SC00098', 'P00025', 'SC00098', 17, 'ADULT', 'C07');
+
+INSERT INTO TICKET VALUES ('A05SC00090', 'P00026', 'SC00090', 17, 'ADULT', 'A05');
+INSERT INTO TICKET VALUES ('A06SC00090', 'P00026', 'SC00090', 12, 'CHILD', 'A06');
+INSERT INTO TICKET VALUES ('A07SC00090', 'P00026', 'SC00090', 12, 'CHILD', 'A07');
+
+INSERT INTO TICKET VALUES ('C01SC00088', 'P00027', 'SC00088', 17, 'ADULT', 'C01');
+INSERT INTO TICKET VALUES ('C02SC00088', 'P00027', 'SC00088', 17, 'ADULT', 'C02');
+INSERT INTO TICKET VALUES ('C03SC00088', 'P00027', 'SC00088', 17, 'ADULT', 'C03');
+
+INSERT INTO TICKET VALUES ('D01SC00110', 'P00028', 'SC00110', 17, 'ADULT', 'D01');
+INSERT INTO TICKET VALUES ('D02SC00110', 'P00028', 'SC00110', 12, 'CHILD', 'D02');
+INSERT INTO TICKET VALUES ('D03SC00110', 'P00028', 'SC00110', 12, 'CHILD', 'D03');
+
+INSERT INTO TICKET VALUES ('B03SC00106', 'P00029', 'SC00106', 17, 'ADULT', 'B03');
+INSERT INTO TICKET VALUES ('B04SC00106', 'P00029', 'SC00106', 17, 'ADULT', 'B04');
+INSERT INTO TICKET VALUES ('B05SC00106', 'P00029', 'SC00106', 12, 'CHILD', 'B05');
+
+INSERT INTO TICKET VALUES ('B01SC00113', 'P00030', 'SC00113', 17, 'ADULT', 'B01');
+
+INSERT INTO TICKET VALUES ('A01SC00116', 'P00031', 'SC00116', 17, 'ADULT', 'A01');
+INSERT INTO TICKET VALUES ('A02SC00116', 'P00031', 'SC00116', 12, 'CHILD', 'A02');
+INSERT INTO TICKET VALUES ('A03SC00116', 'P00031', 'SC00116', 12, 'CHILD', 'A03');
+INSERT INTO TICKET VALUES ('A04SC00116', 'P00031', 'SC00116', 12, 'CHILD', 'A04');
+INSERT INTO TICKET VALUES ('A05SC00116', 'P00031', 'SC00116', 12, 'CHILD', 'A05');
+
+INSERT INTO TICKET VALUES ('D01SC00096', 'P00032', 'SC00096', 17, 'ADULT', 'D01');
+INSERT INTO TICKET VALUES ('D02SC00096', 'P00032', 'SC00096', 17, 'ADULT', 'D02');
+INSERT INTO TICKET VALUES ('D03SC00096', 'P00032', 'SC00096', 17, 'ADULT', 'D03');
+INSERT INTO TICKET VALUES ('D04SC00096', 'P00032', 'SC00096', 17, 'ADULT', 'D04');
+INSERT INTO TICKET VALUES ('D05SC00096', 'P00032', 'SC00096', 17, 'ADULT', 'D05');
+INSERT INTO TICKET VALUES ('D06SC00096', 'P00032', 'SC00096', 12, 'CHILD', 'D06');
+
+INSERT INTO TICKET VALUES ('E06SC00111', 'P00033', 'SC00111', 17, 'ADULT', 'E06');
+INSERT INTO TICKET VALUES ('E07SC00111', 'P00033', 'SC00111', 17, 'ADULT', 'E07');
+
+INSERT INTO TICKET VALUES ('A01SC00103', 'P00034', 'SC00103', 17, 'ADULT', 'A01');
+
+INSERT INTO TICKET VALUES ('A01SC00083', 'P00035', 'SC00083', 17, 'ADULT', 'A01');
+INSERT INTO TICKET VALUES ('A02SC00083', 'P00035', 'SC00083', 17, 'ADULT', 'A02');
+INSERT INTO TICKET VALUES ('C01SC00083', 'P00035', 'SC00083', 17, 'ADULT', 'C01');
+INSERT INTO TICKET VALUES ('C02SC00083', 'P00035', 'SC00083', 17, 'ADULT', 'C02');
+
+INSERT INTO TICKET VALUES ('C05SC00093', 'P00036', 'SC00093', 17, 'ADULT', 'C05');
+INSERT INTO TICKET VALUES ('C06SC00093', 'P00036', 'SC00093', 17, 'ADULT', 'C06');
+
+INSERT INTO TICKET VALUES ('D01SC00104', 'P00037', 'SC00104', 17, 'ADULT', 'D01');
+INSERT INTO TICKET VALUES ('D02SC00104', 'P00037', 'SC00104', 12, 'CHILD', 'D02');
+INSERT INTO TICKET VALUES ('D03SC00104', 'P00037', 'SC00104', 12, 'CHILD', 'D03');
+INSERT INTO TICKET VALUES ('D04SC00104', 'P00037', 'SC00104', 12, 'CHILD', 'D04');
+
+INSERT INTO TICKET VALUES ('B05SC00126', 'P00038', 'SC00126', 17, 'ADULT', 'B05');
+INSERT INTO TICKET VALUES ('B06SC00126', 'P00038', 'SC00126', 12, 'CHILD', 'B06');
+
+INSERT INTO TICKET VALUES ('A01SC00124', 'P00039', 'SC00124', 17, 'ADULT', 'A01');
+INSERT INTO TICKET VALUES ('A02SC00124', 'P00039', 'SC00124', 12, 'CHILD', 'A02');
+INSERT INTO TICKET VALUES ('A03SC00124', 'P00039', 'SC00124', 12, 'CHILD', 'A03');
+INSERT INTO TICKET VALUES ('A04SC00124', 'P00039', 'SC00124', 12, 'CHILD', 'A04');
+INSERT INTO TICKET VALUES ('A05SC00124', 'P00039', 'SC00124', 12, 'CHILD', 'A05');
+INSERT INTO TICKET VALUES ('A06SC00124', 'P00039', 'SC00124', 12, 'CHILD', 'A06');
+
+INSERT INTO TICKET VALUES ('B01SC00138', 'P00040', 'SC00138', 17, 'ADULT', 'B01');
+INSERT INTO TICKET VALUES ('B02SC00138', 'P00040', 'SC00138', 17, 'ADULT', 'B02');
+
+INSERT INTO TICKET VALUES ('D01SC00150', 'P00041', 'SC00150', 17, 'ADULT', 'D01');
+
+INSERT INTO TICKET VALUES ('C03SC00155', 'P00042', 'SC00155', 17, 'ADULT', 'C03');
+INSERT INTO TICKET VALUES ('D06SC00155', 'P00042', 'SC00155', 17, 'ADULT', 'D06');
+INSERT INTO TICKET VALUES ('D07SC00155', 'P00042', 'SC00155', 12, 'CHILD', 'D07');
+
+INSERT INTO TICKET VALUES ('A03SC00135', 'P00043', 'SC00135', 17, 'ADULT', 'A03');
+INSERT INTO TICKET VALUES ('A04SC00135', 'P00043', 'SC00135', 12, 'CHILD', 'A04');
+INSERT INTO TICKET VALUES ('A05SC00135', 'P00043', 'SC00135', 12, 'CHILD', 'A05');
+
+INSERT INTO TICKET VALUES ('C01SC00141', 'P00044', 'SC00141', 17, 'ADULT', 'C01');
+INSERT INTO TICKET VALUES ('C02SC00141', 'P00044', 'SC00141', 17, 'ADULT', 'C02');
+INSERT INTO TICKET VALUES ('C03SC00141', 'P00044', 'SC00141', 17, 'ADULT', 'C03');
+
+INSERT INTO TICKET VALUES ('E01SC00133', 'P00045', 'SC00133', 17, 'ADULT', 'E01');
+INSERT INTO TICKET VALUES ('E02SC00133', 'P00045', 'SC00133', 17, 'ADULT', 'E02');
+INSERT INTO TICKET VALUES ('E03SC00133', 'P00045', 'SC00133', 17, 'ADULT', 'E03');
+INSERT INTO TICKET VALUES ('E04SC00133', 'P00045', 'SC00133', 17, 'ADULT', 'E04');
+INSERT INTO TICKET VALUES ('E05SC00133', 'P00045', 'SC00133', 12, 'CHILD', 'E05');
+INSERT INTO TICKET VALUES ('E06SC00133', 'P00045', 'SC00133', 12, 'CHILD', 'E06');
+
+INSERT INTO TICKET VALUES ('B01SC00123', 'P00046', 'SC00123', 17, 'ADULT', 'B01');
+INSERT INTO TICKET VALUES ('B02SC00123', 'P00046', 'SC00123', 17, 'ADULT', 'B02');
+INSERT INTO TICKET VALUES ('A01SC00123', 'P00046', 'SC00123', 17, 'ADULT', 'A01');
+INSERT INTO TICKET VALUES ('A02SC00123', 'P00046', 'SC00123', 12, 'CHILD', 'A02');
+
+INSERT INTO TICKET VALUES ('A06SC00131', 'P00047', 'SC00131', 17, 'ADULT', 'A06');
+INSERT INTO TICKET VALUES ('A07SC00131', 'P00047', 'SC00131', 17, 'ADULT', 'A07');
+
+INSERT INTO TICKET VALUES ('C05SC00143', 'P00048', 'SC00143', 17, 'ADULT', 'C05');
+INSERT INTO TICKET VALUES ('C06SC00143', 'P00048', 'SC00143', 17, 'ADULT', 'C06');
+INSERT INTO TICKET VALUES ('C07SC00143', 'P00048', 'SC00143', 17, 'ADULT', 'C07');
+
+INSERT INTO TICKET VALUES ('D01SC00151', 'P00049', 'SC00151', 17, 'ADULT', 'D01');
+INSERT INTO TICKET VALUES ('D02SC00151', 'P00049', 'SC00151', 17, 'ADULT', 'D02');
+INSERT INTO TICKET VALUES ('D03SC00151', 'P00049', 'SC00151', 17, 'ADULT', 'D03');
+INSERT INTO TICKET VALUES ('D04SC00151', 'P00049', 'SC00151', 12, 'CHILD', 'D04');
+
+INSERT INTO TICKET VALUES ('E03SC00147', 'P00050', 'SC00147', 17, 'ADULT', 'E03');
+INSERT INTO TICKET VALUES ('E04SC00147', 'P00050', 'SC00147', 12, 'CHILD', 'E04');
+
+INSERT INTO TICKET VALUES ('B03SC00153', 'P00051', 'SC00153', 17, 'ADULT', 'B03');
+INSERT INTO TICKET VALUES ('B04SC00153', 'P00051', 'SC00153', 12, 'CHILD', 'B04');
+INSERT INTO TICKET VALUES ('B05SC00153', 'P00051', 'SC00153', 12, 'CHILD', 'B05');
+
+INSERT INTO TICKET VALUES ('A01SC00161', 'P00052', 'SC00161', 17, 'ADULT', 'A01');
+INSERT INTO TICKET VALUES ('A02SC00161', 'P00052', 'SC00161', 17, 'ADULT', 'A02');
+INSERT INTO TICKET VALUES ('C01SC00161', 'P00052', 'SC00161', 17, 'ADULT', 'C01');
+INSERT INTO TICKET VALUES ('C02SC00161', 'P00052', 'SC00161', 17, 'ADULT', 'C02');
+INSERT INTO TICKET VALUES ('C03SC00161', 'P00052', 'SC00161', 17, 'ADULT', 'C03');
+INSERT INTO TICKET VALUES ('C04SC00161', 'P00052', 'SC00161', 12, 'CHILD', 'C04');
+
+
+
+INSERT INTO Staff
+VALUES('S001', 'Kevin Thum Thian Liat', 'kevinthum@gmail.com', 'kevin12thum34', 'Manager', '0123456789', 'In what city were you born?', 'Alor Setar');
+
+INSERT INTO Staff
+VALUES('S002', 'Woon Yao Tuk', 'woonyt@gmail.com', '1woon2yau3tuk4', 'Manager', '0198765432', 'What is the name of your favourite pet?', 'Mike');
+
+INSERT INTO Staff
+VALUES('S003', 'Choong Xiong Tan', 'choongxiongtan123@gmail.com', 'choong12xiong4tan', 'Film Projectionist', '0124022462', 'What is your father''s name?', 'Choong Xiang Xong');
+
+INSERT INTO Staff
+VALUES('S004', 'Arief Shmsul bin Sanorhizam', 'arief312@gmail.com', '231ar2ief4', 'Film Projectionist', '0176557290', 'What is your mother''s name?', 'Aisyah');
+
+INSERT INTO Staff
+VALUES('S005', 'Shevon Xiong He Shie', 'shevonxiong@gmail.com', 's1he2vo1n', 'Usher', '0196358836', 'What is your favourite food?', 'Sushi');
+
+INSERT INTO Staff
+VALUES('S006', 'Noor Nabilah Wasil', '1nabilah1@gmail.com', 'n1b2i3l4a5h', 'Cashier', '0140117436', 'What is your father''s name?', 'Shaiful');
+
+INSERT INTO Staff
+VALUES('S007', 'Tam Keu Lun', 'tamkeulunnn@gmail.com', '1tamkeulun1', 'Usher', '0166430898', 'What is your mother''s name?', 'Kah');
+
+INSERT INTO Staff
+VALUES('S008', 'Vong Liau Aw', 'vongla@gmail.com', 'liau1Aw23', 'Film Projectionist', '0190549383', 'In what city were you born?', 'Sungai Petani');
+
+INSERT INTO Staff
+VALUES('S009', 'Pom Hui Leen', 'huileen31@gmail.com', '1hui3leen1', 'Cashier', '0174074385', 'What is your favourite food?', 'Pasta');
+
+INSERT INTO Staff
+VALUES('S010', 'Tay Siew Liah', 'taysiewliah1997@gmail.com', '123taysl123', 'Cashier', '0189733434', 'What is the name of your favourite pet?', 'Bronny');
+
+INSERT INTO Staff
+VALUES('S011', 'Gheetha Devaraj', 'gheethadevaraj@gmail.com', 'gheetha12devaraj', 'Community Moderator', '0189733434', 'What is your favourite food?', 'Burger');
+
+INSERT INTO Staff
+VALUES('S012', 'Whay Chu Yep', 'whaychu1yep@gmail.com', '12chu12yep12', 'Community Moderator', '0189733434', NULL,  NULL);
+
+INSERT INTO Review
+VALUES('RV001', 'C0001', 'Brilliant cinema - the best we''ve seen across the globe!! Very reasonably priced, clean, comfortable seating, and not too busy inside.', 5, NULL);
+
+INSERT INTO Review
+VALUES('RV002', 'C0004', 'Watched a couple movies here. Seats are very comfortable, prices are reasonable, and all the usual movie snacks are available.', 5, 'Thanks for you humble response and please do continue your support as we improvise our services!');
+
+INSERT INTO Review
+VALUES('RV003', 'C0007', 'Tried calling the Customer Service, after 10am , on a Sunday, to seek clarification on the screening of a movie in one of their cinemas. Despite repeatedly calling the CS number, for more than half an hour, absolutely no response.', 2, NULL);
+
+INSERT INTO Review
+VALUES('RV004', 'C0008', 'A good quality Cinema at a cheap price. the quality of video and sound was quite nice. Watched Jutjutsu Kaisen 0 over there. Loved it', 4, NULL);
+
+INSERT INTO Review
+VALUES('RV005', 'C0009', 'Worst Cinema experience ever.', 1, 'We are so sorry to hear that feedback from you, we promise to improvise our services to meet your expectations.');
+
+INSERT INTO Review
+VALUES('RV006', 'C0011', 'Pretty decent. The waiting area is broad enough that you don''t feel claustrophobic and the snacks are a decent size. Liking the screens and sound systems too.', 4, NULL);
+
+INSERT INTO Review
+VALUES('RV007', 'C0013', 'Great place to catch a movie, seats are nice and wide. Best to book your tickets via the GSC phone app', 5, NULL);
+
+INSERT INTO refund VALUES('R000001','P00003','S001',DATE('2022-04-16'),'Infected / Close Contact to Covid-19','A');
+INSERT INTO refund VALUES('R000002','P00005','S002',DATE('2022-04-16'),'Infected / Close Contact to Covid-19','A');
+INSERT INTO refund VALUES('R000003','P00006','S001',DATE('2022-04-17'),'Others','U');
+INSERT INTO refund VALUES('R000004','P00016','S001',DATE('2022-04-17'),'Error in the Payment','A');
+INSERT INTO refund VALUES('R000005','P00012','S002',DATE('2022-04-18'),'Others','U');
+INSERT INTO refund VALUES('R000006','P00004','S002',DATE('2022-04-18'),'Error in the Payment','A');
+INSERT INTO refund VALUES('R000007','P00018','S001',DATE('2022-04-18'),'Change Of Mind','A');
+INSERT INTO refund VALUES('R000008','P00051','S002',DATE('2022-04-18'),'Infected / Close Contact to Covid-19','P');
+INSERT INTO refund VALUES('R000009','P00052','S002',DATE('2022-04-21'),'Others','P');
+INSERT INTO refund VALUES('R000010','P00045','S001',DATE('2022-04-21'),'Infected / Close Contact to Covid-19','P');
+INSERT INTO refund VALUES('R000011','P00044','S002',DATE('2022-04-21'),'Change Of Mind','P');
+
+
+INSERT INTO voucher VALUES('V000001','C0001',5);
+INSERT INTO voucher VALUES('V000002','C0002',10);
+INSERT INTO voucher VALUES('V000003','C0003',15);
+INSERT INTO voucher VALUES('V000004','C0003',5);
+INSERT INTO voucher VALUES('V000005','C0001',5);
+INSERT INTO voucher VALUES('V000006','C0015',15);
+INSERT INTO voucher VALUES('V000007','C0015',10);
+INSERT INTO voucher VALUES('V000008','C0001',5);
+INSERT INTO voucher VALUES('V000009','C0002',5);
+INSERT INTO voucher VALUES('V000010','C0014',15);
+INSERT INTO voucher VALUES('V000011','C0010',10);
+INSERT INTO voucher VALUES('V000012','C0009',5);
+INSERT INTO voucher VALUES('V000013','C0008',5);
+INSERT INTO voucher VALUES('V000014','C0009',10);
+INSERT INTO voucher VALUES('V000015','C0008',10);
+INSERT INTO voucher VALUES('V000016','C0021',5);
+INSERT INTO voucher VALUES('V000017','C0005',5);
+INSERT INTO voucher VALUES('V000018','C0006',15);
+INSERT INTO voucher VALUES('V000019','C0012',5);
+INSERT INTO voucher VALUES('V000020','C0015',15);
+INSERT INTO voucher VALUES('V000021','C0012',10);
+INSERT INTO voucher VALUES('V000022','C0013',5);
+INSERT INTO voucher VALUES('V000023','C0010',15);
+INSERT INTO voucher VALUES('V000024','C0013',15);
+INSERT INTO voucher VALUES('V000025','C0002',10);
+INSERT INTO voucher VALUES('V000026','C0010',5);
+INSERT INTO voucher VALUES('V000027','C0012',5);
+INSERT INTO voucher VALUES('V000028','C0021',5);
+INSERT INTO voucher VALUES('V000029','C0009',10);
+INSERT INTO voucher VALUES('V000030','C0026',15);

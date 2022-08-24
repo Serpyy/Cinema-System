@@ -1,0 +1,375 @@
+@media screen and (min-width: 800px) {
+   body {
+      width:100%;
+   }
+}
+/*GSC - Rate & Review (Customer)*/
+.rateRow {
+    color: white;
+    width: 70%;
+    margin: auto;
+    height: 100%;
+}
+.rateColLeft {
+    float: left;
+    background: rgba(0,0,0,.7);
+    width: 64.8%;
+    height: 100%;
+    overflow: auto;
+}
+.rateColRight {
+    float: right;
+    border-left: 2px solid rgb(0,0,0,.5);
+    background: rgba(0,0,0,1);
+    width: 35%;
+    height: 100%;
+}
+.rateRow:after {
+    content: "";
+    display:table;
+    clear: both;
+}
+
+.rateHeaderRight {
+    text-align: center;
+    border-bottom: 1px solid rgba(48,47,47,1);
+    line-height: 4.5;
+    letter-spacing: 2px;
+    color: #ffe229;
+}
+
+.rateColRight h2 {
+    line-height: 1.6;
+    text-indent: 50px;
+    letter-spacing: 3.5px;
+    background-color: rgba(80,78,78,.2);
+}
+
+.topDeco {
+    margin: 10 0 10 0;
+    margin-right: 280px;
+    border-top: 1px dotted rgba(108,108,108,.3);
+}
+.bottomDeco {
+    margin: 10 0 10 0;
+    margin-right: 380;
+    border-top: 1px solid rgba(108,108,108,.3);
+}
+
+/*Left Section*/
+.rateColLeft > h1 {
+    padding: 25 0;
+    line-height: 1.4;
+    text-indent: 35px;
+    letter-spacing: 1px;
+    background: black;
+    border-bottom: 1px solid rgba(48,47,47,1);
+    color: #ffe229;
+}
+/*Comment Box*/
+.commentBox {
+    width: 95%;
+    height:15%;
+    top: 25%;
+    margin: -20 auto 20 auto;
+    background: rgba(41,41,41,.3);
+    margin-bottom: 50px;
+}
+.replyBox {
+    width: 95%;
+    height: auto;
+    padding-bottom: 10px;
+    margin: -50 auto;
+    background: rgba(61,59,59,.4);
+    margin-bottom: 50px;
+}
+
+.boxHead {
+    margin-top: 50px;
+    background: rgba(61,59,59,.1);
+    padding: 8px;
+}
+.boxHead > h3 {
+    margin-left: 10px;
+}
+.boxHead > h4 {
+    color:#ffe229;
+}
+.commentFormat {
+    margin-left: 18px;
+}
+.ratingFormat {
+    float: right;
+    margin-top: -22px;
+}
+
+/*Right Section*/
+/*Star Rating*/
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+    margin-top: 17px;
+    margin-left: 86px;
+}
+
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:48px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: rgba(251,215,100,1);   
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: rgba(251,215,100,1);
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+/*Comment*/
+.comment textarea {
+    display:block;
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 92%;
+    height: 150px;
+    padding: 2%;
+    font-size: 1.2em;
+    border: none;
+    background-color: rgba(80,78,78,.3);
+    resize: none;
+    color: white;
+}
+
+.replyBox textarea {
+    display:block;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 92%;
+    height: 130px;
+    font-size: 1.2em;
+    border: none;
+    background-color: rgba(80,78,78,.3);
+    resize: none;
+    color: white;
+}
+
+/*Post Button*/
+.submitReview {
+    background-color: #ffe229;
+    border: 1px solid rgb(0,0,0,.5);
+    color: black;
+    font-weight: 600;
+    padding: 16px 64px;
+    text-decoration: none;
+    display: grid;
+    margin: auto;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.submitReview:hover {
+    background-color: white;
+    color:#ffe229;
+}
+
+.submitResponse {
+    background-color: #ffe229;
+    border: 1px solid rgb(0,0,0,.5);
+    color: black;
+    font-weight: 600;
+    padding: 10px 50px;
+    text-decoration: none;
+    display: grid;
+    margin: auto;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.submitResponse:hover {
+    background-color: white;
+    color: #ffe229;
+}
+
+/*GSC - Staff Profile*/
+.profile {
+    color: white;
+    width: 70%;
+    margin: auto;
+    height: 100%;
+    background-color: black;
+}
+
+/*Header 1*/
+.profile > h1 {
+    padding: 25 0;
+    line-height: 1.4;
+    text-indent: 50px;
+    letter-spacing: 3.5px;
+    background-color: black;
+    border-bottom: 1px solid rgba(48,47,47,1);
+    color: #ffe229;
+}
+.staffh1Deco {
+    border-top: 1px dotted rgba(0,0,0,.3);
+    margin: 10 0 10 0;
+}
+
+/*Profile Box*/
+.profileBox {
+    color: white;
+    width: 92%;
+    margin: auto;
+    height: 79%;
+    background-color: black;
+    border: 2px solid rgba(0,0,0,.2);
+}
+
+/*Profile Details Control*/
+.name, .email,.currentPW, .newPW, .confirmPW, .phoneNo, .role {
+    width: 100%;
+    padding: 6 6;
+    margin: 5 0 15 0;
+    display: inline-block;
+    border: 1px solid rgba(48,47,47,.7);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: rgba(80,78,78,.9);
+    color: rgb(212,212,212);
+}
+.questions, .answer {
+    width: 35%;
+    padding: 6 6;
+    margin: 5 0 15 0;
+    border: 1px solid rgba(48,47,47,.7);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: rgba(80,78,78,.9);
+    color: rgb(212,212,212);
+}
+.answerTitle {
+    margin-left: 50px;
+}
+
+.profileBox > h2 {
+    padding-bottom: 10px;
+    line-height: 1.5;
+    text-indent: 50px;
+    letter-spacing: 1.5px;
+    color: white;
+}
+.detailsGroup {
+    margin: 0 60 0 55;
+}
+.detailsGroup > label {
+    color: white;
+    letter-spacing: 2px;
+}
+.detailsSplit {
+    border-top: 1px solid rgba(48,47,47,.7);
+}
+
+.pwTopSplit {
+    margin-bottom: 5px;
+    margin-right: 505px;
+    border-top: 1px inset rgba(0,0,0,.2);
+}
+.pwBottomSplit {
+    margin-top: 5px;
+    margin-left: 505px;
+    border-bottom: 1px outset rgba(0,0,0,.2);
+}
+.changePassword {
+    margin: 4 450 15 87;
+}
+.changePassword > label {
+    color: white;
+    letter-spacing: 2px;
+}
+
+/*Save Button*/
+.saveStaffProfile {
+    background-color: #ffe229;
+    border: 2px solid rgba(0,0,0,.2);
+    color: black;
+    font-weight: 600;
+    padding: 12px 40px;
+    text-decoration: none;
+    display: grid;
+    margin: auto;
+    margin-top: -45px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.saveStaffProfile:hover {
+    background-color: white;
+    color: #ffe229;
+}
+
+/*Rate & Review (Staff))*/
+.ratingHistory {
+    background: rgba(0,0,0,.8);
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    margin: auto;
+    height: 100%;
+    border-left: 2px solid rgba(0,0,0,.5);
+    border-right: 2px solid rgba(0,0,0,.5);
+}
+.ratingHistory > h1 {
+    padding: 25 0;
+    line-height: 1.4;
+    text-indent: 35px;
+    letter-spacing: 1px;
+    background: black;
+    border-bottom: 1px solid rgba(48,47,47,1);
+    color: #ffe229;
+}
+
+.commentFormatStaff {
+    margin-left: 18px;
+}
+.responseFormatStaff {
+    margin-left: 10px;
+}
+
+.replyBoxAfter {
+    width: 95%;
+    height: auto;
+    background: rgba(61,59,59,.5);
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+    background-color: rgba(48,47,47,1);
+}
+                    
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+                    
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+}

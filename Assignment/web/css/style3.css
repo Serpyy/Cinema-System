@@ -1,0 +1,617 @@
+
+/*responsive*/
+@media only screen and (max-width: 940px) {
+  .menu-container {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer-col {
+    width: 50%;
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 574px) {
+  .footer-col {
+    width: 100%;
+  }
+}
+
+/*middle part*/
+
+.container {
+  background-color: #151515;
+  min-height: calc(100vh - 50px);
+  color: white;
+}
+
+/*Refund (Customer && Staff side) style start here*/
+h1#refundh1 {
+  padding-top: 50px;
+  margin: 0px auto 5px;
+  text-align: center;
+  width: fit-content;
+}
+
+h2#refundh2 {
+  margin-right: auto;
+  margin-left: 50px;
+  border: 2px solid #fff;
+  width: fit-content;
+}
+
+div.table {
+  width: 70%;
+  height: 300px;
+  background-color: inherit;
+  padding: 0px 5px 20px 5px;
+  min-height: 270px;
+  border-radius: 25px;
+  margin: auto;
+  color: black;
+  overflow-y: scroll;
+  border-top: 1px white solid;
+}
+
+div.table::-webkit-scrollbar {
+  display: none;
+}
+
+div.table input {
+  border: none;
+}
+
+div.table::before {
+  content: var(--s);
+  font-size: 20px;
+  padding: 5px 20px 5px 20px;
+  background-color: white;
+  border: 1px 1px 0px 1px solid rgba(173, 216, 230, 0.2);
+  border-radius: 10px 10px 0px 0px;
+  width: fit-content;
+  position: absolute;
+  margin-top: -34px;
+  margin-left: 15px;
+  z-index: 1;
+}
+
+div.table table {
+  background-color: transparent;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border-radius: 0px;
+  border-spacing: 0px;
+  border:1px solid white;
+  color: white;
+}
+
+div.table table th {
+  position: sticky;
+}
+
+div.table table th {
+  height: 40px;
+  width: 250px;
+  cursor: default;
+  border-bottom: 2px solid darkgray;
+  background-color: white;
+  color: black;
+}
+
+div.table table tr {
+  width: 250px;
+  cursor: pointer;
+  border-bottom: 1000px solid darkgray;
+}
+
+div.table table td {
+  width: 200px;
+  padding-top: 5px;
+  border-bottom: 1px solid lightgray;
+  padding: 10px 0px;
+}
+
+div.table table tr:nth-child(1) {
+  position: sticky;
+}
+
+div.table table tr:nth-child(even) {
+  text-align: left;
+  cursor: default;
+}
+
+div.table table tr:nth-child(4n + 3) td {
+  background-color: grey;
+}
+
+div.table table tr td.details div {
+  margin: 0 auto;
+  justify-content: center;
+  display: flex;
+  padding-left: 50px;
+  line-height: 1.5;
+}
+
+div.table table tr td.details div input.cancel {
+  border-radius: 5px;
+  background-color: #f4e618;
+  padding: 5px 10px;
+  font-size: 20px;
+  font-family: "montserrat";
+  cursor: pointer;
+  margin-left: -50px;
+  margin-top: 10px;
+  transition: 0.8s;
+  justify-content: center;
+  height: fit-content;
+  align-items: flex-end;
+}
+
+.cancel:hover {
+  background-color: rgb(100, 189, 100);
+  box-shadow: 0 0 10px rgba(100, 189, 100, 0.5);
+  transform: scale(1.1);
+}
+
+div.table table tr:last-child td {
+  border-radius: 0px 0px 5px 5px;
+}
+
+#ending {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 20px auto 0px;
+}
+
+#newRefund {
+  border: 1px solid white;
+  background-color: #f4e618;
+  color: black;
+  border-radius: 50px;
+  padding: 10px;
+  text-decoration: none;
+  margin-top: 30px;
+}
+
+/*Refund staff side controller*/
+div.btn {
+  align-items: center;
+  margin: auto;
+  margin-top: 10px;
+  padding: 0px;
+}
+
+.unapprove,
+.approve {
+  border-radius: 5px;
+  background-color: #f4e618;
+  padding: 5px 10px;
+  font-size: 20px;
+  font-family: "montserrat";
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.8s;
+}
+
+.approve:hover {
+  background-color: rgb(100, 189, 100);
+  box-shadow: 0 0 10px rgba(100, 189, 100, 0.5);
+  transform: scale(1.1);
+}
+
+.unapprove:hover {
+  background-color: red;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  transform: scale(1.1);
+}
+
+/*Request for new refund stsyle*/
+div#requestRefund {
+  background-color: inherit;
+  vertical-align: middle;
+  text-align: center;
+  margin: auto;
+  padding-bottom: 30px;
+  margin-top: 50px;
+  width: 600px;
+  height: 440px;
+  color: white;
+  overflow-y: scroll;
+}
+
+div#requestRefund::-webkit-scrollbar {
+  background-color: #151515;
+  width: 7px;
+}
+
+div#requestRefund::-webkit-scrollbar-thumb {
+  background-color: #f4e618;
+}
+
+div#requestRefund::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(244, 230, 24, 0.5);
+}
+
+div#requestRefund table {
+  margin: auto;
+  border-radius: 50px;
+  width: 95%;
+  line-height: 1.5;
+  border-collapse: collapse;
+}
+
+div#requestRefund table thead th {
+  border-bottom: 2px darkgray solid;
+  border-top: 2px darkgray solid;
+  border-radius: 50px;
+}
+
+div#requestRefund table tr:nth-child(even) td {
+  background-color: grey;
+}
+
+div#requestRefund table td {
+  text-align: left;
+  border-bottom: 2px darkgray solid;
+  font-family: "montserrat";
+  padding-bottom: 10px;
+}
+
+div#requestRefund table td input {
+  border: none;
+  text-decoration: none;
+  width: 150px;
+  background-color: transparent;
+  color: white;
+}
+
+div#requestRefund table td .reason {
+  border: 1px white solid;
+}
+
+div#requestRefund table td input.button {
+  background-color: #f4e618;
+  color: black;
+  padding: 5px;
+  border-radius: 5px;
+  width: 100px;
+}
+
+div#requestRefund table td input.button:hover {
+  border-color: #f4e618;
+  box-shadow: 2px 2px 1px rgba(244, 230, 24, 0.3);
+}
+
+div#requestRefund table td#norecord {
+  height: 220px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div#requestRefund table td#norecord div#backToRefundPage {
+  position: static;
+  background-color: #f4e618;
+  width: 120px;
+  border-radius: 10px;
+  margin: auto;
+}
+
+div#requestRefund table td#norecord div#backToRefundPage a {
+  text-decoration: none;
+  color: black;
+}
+
+form.newRefundRequest {
+  vertical-align: middle;
+  text-align: left;
+  margin: auto;
+  width: 400px;
+  height: 400px;
+  padding: 50px;
+}
+
+/*Voucher and Membership*/
+h1#voucherh1 {
+  padding-top: 50px;
+  margin: 0px auto 0px;
+  text-align: center;
+  width: fit-content;
+}
+
+h2#voucherh2 {
+  margin: 50px auto 0px;
+  text-align: center;
+  width: fit-content;
+}
+
+div#cust_vocher {
+  width: 500px;
+  background-color: inherit;
+  min-height: 170px;
+  border-radius: 20px;
+  border-top: none;
+  margin: auto;
+  color: black;
+  overflow-y: scroll;
+}
+
+table#custVoucher_table {
+  width: 100%;
+  margin: 0;
+  margin-top: 3px;
+  border-spacing: 0px;
+  background-color: inherit;
+  border-radius: 20px;
+  color: white;
+  inline-size: 1.2;
+}
+
+div#cust_vocher::-webkit-scrollbar {
+  display: none;
+}
+
+table#custVoucher_table thead th,
+table#voucher_table thead th {
+  height: 25px;
+  font-size: 17px;
+  background-color: white;
+  color: black;
+  border-bottom: 3px solid darkgray;
+}
+
+table#custVoucher_table tr,
+table#voucher_table tr {
+  text-align: center;
+  padding-top: 10px;
+  background-color: black;
+}
+
+table#custVoucher_table td {
+  width: 250px;
+  text-align: center;
+  padding-top: 5px;
+  border-top: 2px solid darkgray;
+  border-bottom: 2px solid darkgray;
+}
+
+table#voucher_table td {
+  width: 250px;
+  text-align: center;
+  padding-top: 5px;
+  border-bottom: 2px solid darkgray;
+}
+
+table#custVoucher_table td.norecord {
+  width: 500px;
+  text-align: center;
+  padding: 20px 0px;
+  border-top: 2px solid darkgray;
+}
+
+table#custVoucher_table tr:nth-child(even) td,
+table#voucher_table tr:nth-child(even) td {
+  background-color: darkgrey;
+}
+
+div#redeem_vocher {
+  width: 500px;
+  background-color: inherit;
+  padding: 0px 0px 20px 0px;
+  margin: auto auto 20px;
+  min-height: 100px;
+  height: 130px;
+  color: black;
+  inline-size: 1.2;
+}
+
+table#voucher_table th:nth-child(1) {
+  border-radius: 10px 0px 0px 0px;
+}
+
+table#voucher_table th:nth-last-child(1) {
+  border-radius: 0px 10px 0px 0px;
+}
+
+div#redeem_vocher::before {
+  content: var(--s);
+  font-size: 20px;
+  padding: 5px 20px 5px 20px;
+  margin-top: -20px;
+  background-color: white;
+  border-radius: 10px 10px 0px 0px;
+  width: fit-content;
+  position: absolute;
+  z-index: 1;
+  left: auto;
+  margin-left: 10px;
+  color: black;
+}
+
+#voucher_table {
+  color: white;
+  padding-top: 10px;
+  height: fit-content;
+  text-align: center;
+  border-spacing: 0px;
+}
+
+#voucher_table .dis_value {
+  border: none;
+  text-align: center;
+  background-color: transparent;
+  color: white;
+  font-size: medium;
+  width: 70px;
+  padding: none;
+}
+
+.redeembtn {
+  background-color: #f4e618;
+  border-radius: 5px;
+  transition-delay: 0.2s;
+}
+
+.redeembtn:hover {
+  border-color: #f4e618;
+  box-shadow: 2px 2px 1px rgba(244, 230, 24, 0.3);
+}
+
+/*displaying the added or update record to the user*/
+#summaryh3 {
+  text-align: center;
+  background-color: darkgray;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+div#Summary {
+  margin: auto;
+  align-items: center;
+  vertical-align: middle;
+  width: 500px;
+  border-radius: 15px;
+  background-color: transparent;
+  border: 5px solid darkgray;
+  color: white;
+  inline-size: 1.2;
+  line-height: 1.5;
+}
+
+div#Summary div {
+  margin: 0px;
+  height: 60px;
+  padding-top: 20px;
+  padding-left: 30px;
+  align-items: center;
+  position: relative;
+  background-color: darkgrey;
+  margin-bottom: 10px;
+  padding-bottom: 50px;
+}
+
+div#Summary table input {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  height: fit-content;
+}
+
+
+div#Summary table {
+  padding-top: 0px;
+  text-align: left;
+  border-radius: 10px;
+  color: white;
+  background-color: inherit;
+}
+
+div#Summary table td {
+  height: 30px;
+  width: 400px;
+  padding-left: 20px;
+  vertical-align: text-top;
+}
+
+#goBackbtn {
+  background-color: #f4e618;
+  border: 2px solid black;
+  border-radius: 30px;
+  width: 100px;
+  height: 30px;
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  padding-left: 20px;
+  align-items: center;
+}
+
+#goBackbtn:hover {
+  border: 2px solid #f4e618;
+}
+
+div#Summary div#ConfirmAndCancel {
+  background-color: inherit;
+  margin: auto;
+  width: 200px;
+}
+
+#confirmbtn {
+  border-radius: 5px;
+  background-color: #f4e618;
+  padding: 5px 10px;
+  font-size: 20px;
+  font-family: "montserrat";
+  cursor: pointer;
+  transition: 0.8s;
+  margin-left: -10px;
+}
+
+#confirmbtn:hover {
+  border: 2px solid #f4e618;
+}
+
+#cancelbtn {
+  margin: auto;
+  border-radius: 5px;
+  background-color: #f4e618;
+  padding: 5px 10px;
+  font-size: 20px;
+  font-family: "montserrat";
+  cursor: pointer;
+  transition: 0.8s;
+  margin-right: -10px;
+}
+
+#cancelbtn:hover {
+  border: 2px solid #f4e618;
+}
+
+/*About Sytle style start here*/
+#cinemaImage {
+  width: 190px;
+  height: 190px;
+  border: 2px solid white;
+  float: left;
+  margin-right: 10px;
+}
+
+table#aboutus {
+  width: 60%;
+  margin: auto;
+  padding: 5px;
+}
+
+table#aboutus p {
+  vertical-align: middle;
+}
+
+table#aboutus td {
+  padding: 5px;
+}
+
+div#info {
+  width: 70%;
+  margin: auto;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1.5;
+  align-items: center;
+}
+
+div#info div.row {
+  position: relative;
+  padding: 0 0 0 0;
+}
+
+div#info div div.col {
+  width: 33%;
+  padding-right: auto;
+}
