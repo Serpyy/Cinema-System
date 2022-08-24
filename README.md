@@ -1,5 +1,5 @@
 # Cinema-System
-Simple Cinema System involving functionalities like CRUD. Created using Java, HTML, CSS, JS &amp; MySQL
+Simple Cinema System involving functionalities like CRUD. Created using Java, HTML, CSS, JS & MySQL , involving the MVC Framework
 
 # Instruction
 - The name of the JSP file to run for starting up the website.</br>
