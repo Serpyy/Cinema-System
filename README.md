@@ -2,34 +2,34 @@
 Simple Cinema System involving functionalities like CRUD. Created using Java, HTML, CSS, JS &amp; MySQL
 
 # Instruction
-- The name of the JSP file to run for starting up your website.
-Home.jsp
+- The name of the JSP file to run for starting up your website.</br>
+**Home.jsp**</br>
 
-- Your NetBeans version
-NetBeans 8.2
+- Your NetBeans version</br>
+**NetBeans 8.2**</br>
 
-- Your JDK version
-JDK 1.8
+- Your JDK version</br>
+**JDK 1.8**</br>
 
-- Your Glassfish version
-Glassfish Server 4.1.1
+- Your Glassfish version</br>
+**Glassfish Server 4.1.1**</br>
 
-- The name, username and password of your Derby database
-Name: assignmentdb
-Username: nbuser
-Password: nbuser
+- The name, username and password of your Derby database</br>
+**Name:** assignmentdb</br>
+**Username:** nbuser</br>
+**Password:** nbuser</br>
 
-- The login credentials to test your system
-Customer:
-email: PouAnn@hotmail.com
-password: 147729Van00
+- The login credentials to test your system</br>
+**Customer:**</br>
+**email:** PouAnn@hotmail.com</br>
+**password:** 147729Van00</br>
 
-Staff:
-email: kevinthum@gmail.com
-password: kevin12thum34
+**Staff:**</br>
+**email:** kevinthum@gmail.com</br>
+**password:** kevin12thum34</br>
 
-- Any special configuration needed in order to run your website (e.g. additional settings)
-NONE
+- Any special configuration needed in order to run your website (e.g. additional settings)</br>
+**NONE**</br>
 
 # NOTE
 1. Style3.css and RefundStaff.jsp might have unexpected token COLON found error in it. Just ignore because it will still function.
